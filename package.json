@@ -450,7 +450,8 @@
     "parse-glob": "^3.0.4",
     "parse-json": "^2.2.0",
     "react": "^16.4.1",
-    "react-native": "^0.55.4"
+    "react-native": "^0.55.4",
+    "react-native-simple-store": "^1.3.0"
   },
   "devDependencies": {},
   "scripts": {

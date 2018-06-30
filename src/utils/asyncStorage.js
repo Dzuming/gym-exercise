@@ -1,25 +1,11 @@
-import { AsyncStorage } from "react-native";
+import store from "react-native-simple-store";
 
-export const getItem = async key => {
-  try {
-      console.log('BEFORE');
-    const value = await AsyncStorage.getItem(key);
-      console.log('AFTER');
+export async function printAsyncStorage() {
+        const keys = await store.keys()
+    return keys.map(key => store.get(key).then(value => console.log(value)))
+}
 
-    if (value !== null) {
-      return value;
-    }
-  } catch (error) {
-    console.log(error);
-    return error;
-    // Error retrieving data
-  }
-};
-
-export const setItem = async (key, value) => {
-  try {
-    await AsyncStorage.setItem(key, JSON.stringify(value));
-  } catch (error) {
-    // Error saving data
-  }
-};
+export async function clearAsyncStorage() {
+    const keys = await store.keys()
+    return keys.map(key => store.delete(key))
+}
