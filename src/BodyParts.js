@@ -4,22 +4,26 @@ import { Button, View, TextInput, Text, FlatList } from "react-native";
 import store from "react-native-simple-store";
 import { guid } from "./utils/uuid";
 import { clearAsyncStorage, printAsyncStorage } from "./utils/asyncStorage";
+import AppView from "./shared/AppView";
 
 class BodyParts extends Component {
   state = {
     bodyPart: "",
-    bodyParts: []
+    bodyParts: [],
+    isLoading: false
   };
 
   addBodyParts = () => {
+    this.showLoader(true);
     store
       .push("bodyParts", {
         id: guid(),
         name: this.state.bodyPart
       })
-      .then(async () =>
-        this.setState({ bodyParts: await store.get("bodyParts") })
-      );
+      .then(async () => {
+        this.setState({ bodyParts: await store.get("bodyParts") });
+        this.showLoader(false);
+      });
   };
 
   async componentDidMount() {
@@ -27,11 +31,11 @@ class BodyParts extends Component {
       this.setState({ bodyParts: await store.get("bodyParts") });
     }
   }
-
+  showLoader = state => this.setState({ isLoading: state });
   render() {
-    const { bodyPart, bodyParts } = this.state;
+    const { bodyPart, bodyParts, isLoading } = this.state;
     return (
-      <View>
+      <AppView isLoading={isLoading}>
         <TextInput
           style={{ height: 40 }}
           placeholder="Type here body part!"
@@ -53,7 +57,7 @@ class BodyParts extends Component {
           )}
           keyExtractor={item => item.id}
         />
-      </View>
+      </AppView>
     );
   }
 }
