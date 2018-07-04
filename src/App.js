@@ -5,13 +5,13 @@
  */
 
 import React, { Component } from "react";
-import BodyParts from "./BodyParts";
+import Screens from "./Screens";
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <BodyParts />
+      <Screens />
     );
   }
 }

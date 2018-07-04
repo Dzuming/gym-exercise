@@ -2,11 +2,15 @@
 import React, { Component } from "react";
 import { Button, View, TextInput, Text, FlatList } from "react-native";
 import store from "react-native-simple-store";
-import { guid } from "./utils/uuid";
-import { clearAsyncStorage, printAsyncStorage } from "./utils/asyncStorage";
-import AppView from "./shared/AppView";
+import { guid } from "../utils/uuid";
+import { clearAsyncStorage, printAsyncStorage } from "../utils/asyncStorage";
+import AppView from "../shared/AppView";
 
 class BodyParts extends Component {
+  static navigationOptions = {
+    title: "Body parts"
+  };
+
   state = {
     bodyPart: "",
     bodyParts: [],
@@ -35,7 +39,7 @@ class BodyParts extends Component {
   render() {
     const { bodyPart, bodyParts, isLoading } = this.state;
     return (
-      <AppView isLoading={isLoading}>
+      <AppView headerTitle={"Body Parts"} isLoading={isLoading}>
         <TextInput
           style={{ height: 40 }}
           placeholder="Type here body part!"
