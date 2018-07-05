@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "react-native";
 import AppView from "../shared/AppView";
 import { screens } from "../constants/screens";
+import CustomButton from "../components/CustomButton";
 class Home extends React.Component {
   static navigationOptions = {
     title: "Home"
@@ -17,8 +17,10 @@ class Home extends React.Component {
             return;
           }
           return (
-            <Button
+            <CustomButton
               key={index}
+              buttonStyle={{marginBottom: 10, padding: 10, alignItems: 'center', backgroundColor: 'blue'}}
+              textStyle={{fontSize: 16, color: 'white'}}
               title={screen.title}
               onPress={() => this.props.navigation.navigate(screen.name)}
             />
