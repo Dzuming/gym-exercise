@@ -1,10 +1,8 @@
 // @Flow
 import React, { Component } from "react";
-import { Button, View, TextInput, Text, FlatList } from "react-native";
-import store from "react-native-simple-store";
-import { guid } from "../utils/uuid";
-import { clearAsyncStorage, printAsyncStorage } from "../utils/asyncStorage";
+import { Button, TextInput, Text, FlatList } from "react-native";
 import AppView from "../shared/AppView";
+import { createBodyPart, getBodyParts } from "../utils/asyncStorage";
 
 class BodyParts extends Component {
   static navigationOptions = {
@@ -19,20 +17,16 @@ class BodyParts extends Component {
 
   addBodyParts = () => {
     this.showLoader(true);
-    store
-      .push("bodyParts", {
-        id: guid(),
-        name: this.state.bodyPart
-      })
-      .then(async () => {
-        this.setState({ bodyParts: await store.get("bodyParts") });
-        this.showLoader(false);
-      });
+    createBodyPart(this.state.bodyPart).then(async () => {
+      this.setState({ bodyParts: await getBodyParts() });
+      this.showLoader(false);
+    });
   };
 
   async componentDidMount() {
-    if (Array.isArray(await store.get("bodyParts"))) {
-      this.setState({ bodyParts: await store.get("bodyParts") });
+    const bodyParts = await getBodyParts();
+    if (Array.isArray(bodyParts)) {
+      this.setState({ bodyParts });
     }
   }
   showLoader = state => this.setState({ isLoading: state });

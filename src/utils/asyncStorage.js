@@ -1,4 +1,5 @@
 import store from "react-native-simple-store";
+import {guid} from "./uuid";
 
 export async function printAsyncStorage() {
         const keys = await store.keys()
@@ -8,4 +9,17 @@ export async function printAsyncStorage() {
 export async function clearAsyncStorage() {
     const keys = await store.keys()
     return keys.map(key => store.delete(key))
+}
+
+export function getBodyParts() {
+    return store.get("bodyParts")
+}
+
+
+export function createBodyPart(name) {
+    return store
+        .push("bodyParts", {
+            id: guid(),
+            name
+        })
 }
