@@ -23,3 +23,16 @@ export function createBodyPart(name) {
             name
         })
 }
+
+export function getExercises() {
+    return store.get("exercises")
+}
+
+export function createExercise(exercise) {
+    return store
+        .push("exercises", {
+            id: guid(),
+            name: exercise.name,
+            bodyPart: exercise.bodyPart
+        })
+}
