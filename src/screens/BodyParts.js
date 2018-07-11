@@ -29,6 +29,7 @@ class BodyParts extends Component {
       this.setState({ bodyParts });
     }
   }
+
   showLoader = state => this.setState({ isLoading: state });
   render() {
     const { bodyPart, bodyParts, isLoading } = this.state;

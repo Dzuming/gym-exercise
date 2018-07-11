@@ -1,6 +1,7 @@
 import Home from "../screens/Home";
 import BodyParts from "../screens/BodyParts";
 import Exercises from "../screens/Exercises";
+import Results from "../screens/Results";
 
 export const screens = [
   {
@@ -18,5 +19,10 @@ export const screens = [
     component: Exercises,
     title: "Go to Exercises"
   },
+  {
+    name: "results",
+    component: Results,
+    title: "Add Result"
+  }
   ,
 ];
