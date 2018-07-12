@@ -31,43 +31,12 @@ class Results extends Component {
     exerciseResultByDate: [],
     date: "",
     weight: "",
-    amount: 0,
+    amount: "",
     isLoading: false
   };
 
   setBodyPart = value => this.setState({ bodyPart: value });
   setExercise = value => this.setState({ exercise: value });
-
-  async componentDidMount() {
-    const bodyParts = await getBodyParts();
-    if (Array.isArray(bodyParts)) {
-      this.setState({ bodyParts });
-      this.setState({ bodyPart: bodyParts[0].id });
-    }
-  }
-  async componentDidUpdate(prevProps, prevState) {
-    if (prevState.bodyPart !== this.state.bodyPart) {
-      const exercisesByBodyPart = await getExercisesByBodyPart(
-        this.state.bodyPart
-      );
-      if (Array.isArray(exercisesByBodyPart)) {
-        this.setState({ exercisesByBodyPart });
-        this.setState({ exercise: exercisesByBodyPart[0].id });
-      }
-    }
-    if (
-      prevState.exercise !== this.state.exercise ||
-      prevState.date !== this.state.date
-    ) {
-      const exerciseResultByDate = await getExerciseResultByDate(
-        this.state.exercise,
-        this.state.date
-      );
-      if (Array.isArray(exerciseResultByDate)) {
-        this.setState({ exerciseResultByDate });
-      }
-    }
-  }
 
   AddExerciseValue = async () => {
     const { exercise, date, amount, weight } = this.state;
@@ -79,6 +48,22 @@ class Results extends Component {
       weight
     });
     await this.showLoader(false);
+    await this.setExerciseResultByDate();
+  };
+
+  showLoader = state => this.setState({ isLoading: state });
+
+  setExerciseByBodyPart = async () => {
+    const exercisesByBodyPart = await getExercisesByBodyPart(
+      this.state.bodyPart
+    );
+    if (Array.isArray(exercisesByBodyPart)) {
+      this.setState({ exercisesByBodyPart });
+      this.setState({ exercise: exercisesByBodyPart[0].id });
+    }
+  };
+
+  setExerciseResultByDate = async () => {
     const exerciseResultByDate = await getExerciseResultByDate(
       this.state.exercise,
       this.state.date
@@ -87,8 +72,24 @@ class Results extends Component {
       this.setState({ exerciseResultByDate });
     }
   };
-
-  showLoader = state => this.setState({ isLoading: state });
+  async componentDidMount() {
+    const bodyParts = await getBodyParts();
+    if (Array.isArray(bodyParts)) {
+      this.setState({ bodyParts });
+      this.setState({ bodyPart: bodyParts[0].id });
+    }
+  }
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.bodyPart !== this.state.bodyPart) {
+      await this.setExerciseByBodyPart();
+    }
+    if (
+      prevState.exercise !== this.state.exercise ||
+      prevState.date !== this.state.date
+    ) {
+      await this.setExerciseResultByDate();
+    }
+  }
 
   render() {
     const {
@@ -146,21 +147,23 @@ class Results extends Component {
         />
         <View style={{ flexDirection: "row" }}>
           <TextInput
+            keyboardType="numeric"
             style={{
               height: 40,
               width: Dimensions.get("window").width / 2 - 20
             }}
             placeholder="Type here weight!"
-            value={weight}
+            value={String(weight)}
             onChangeText={text => this.setState({ weight: text })}
           />
           <TextInput
+            keyboardType="numeric"
             style={{
               height: 40,
               width: Dimensions.get("window").width / 2 - 20
             }}
             placeholder="Type here amount!"
-            value={amount}
+            value={String(amount)}
             onChangeText={text => this.setState({ amount: text })}
           />
         </View>
@@ -174,7 +177,7 @@ class Results extends Component {
           data={exerciseResultByDate}
           renderItem={({ item, index }) => (
             <Text>
-              {index + 1} {item.amount} {item.weight}kg
+              {index + 1} {item.amount} raz(y) {item.weight}kg
             </Text>
           )}
           keyExtractor={item => item.id}
