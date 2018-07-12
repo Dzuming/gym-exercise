@@ -63,6 +63,7 @@ export async function addValueToExercise({
       if (!exercise.results) {
         exercise.results = [];
       }
+      result.id = guid();
       result.date = date;
       result.amount = amount;
       result.weight = weight;
@@ -73,6 +74,13 @@ export async function addValueToExercise({
   return await store.save("exercises", exercises);
 }
 
-export function removeFromLocalStorage(key) {
+function removeFromLocalStorage(key) {
   return store.delete(key);
+}
+
+export async function removeExerciseValue(id, date, resultId) {
+  const exercises = await getExerciseResultByDate(id, date);
+  await removeFromLocalStorage("exercises");
+  const { results } = Object.assign({}, exercises);
+  const result = await results.filter(result => result.id !== resultId);
 }

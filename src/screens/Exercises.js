@@ -4,7 +4,7 @@ import AppView from "../shared/AppView";
 import {
   createExercise,
   getBodyParts,
-  getExercises
+  getExercisesByBodyPart
 } from "../utils/asyncStorage";
 
 class Exercises extends Component {
@@ -24,15 +24,23 @@ class Exercises extends Component {
 
   async componentDidMount() {
     const bodyParts = await getBodyParts();
-    const exercises = await getExercises();
-    if (Array.isArray(bodyParts)) {
-      this.setState({ bodyParts });
-    }
 
-    if (Array.isArray(exercises)) {
-      this.setState({ exercises });
+    if (Array.isArray(bodyParts)) {
+      await this.setState({ bodyParts });
+      await this.setExerciseValue("bodyPart")(bodyParts[0].id);
     }
   }
+
+  async componentDidUpdate(prevProps, prevState) {
+    const { exercise } = this.state;
+    if (prevState.bodyPart !== exercise.bodyPart) {
+      const exercises = await getExercisesByBodyPart(exercise.bodyPart);
+      if (Array.isArray(exercises)) {
+        this.setState({ exercises });
+      }
+    }
+  }
+
   setExerciseValue = parameter => value => {
     let exercise = { ...this.state.exercise };
     exercise[parameter] = value;
@@ -40,9 +48,12 @@ class Exercises extends Component {
   };
 
   addExercise = () => {
+    const { exercise } = this.state;
     this.showLoader(true);
-    createExercise(this.state.exercise).then(async () => {
-      this.setState({ exercises: await getExercises() });
+    createExercise(exercise).then(async () => {
+      this.setState({
+        exercises: await getExercisesByBodyPart(exercise.bodyPart)
+      });
       this.showLoader(false);
     });
   };

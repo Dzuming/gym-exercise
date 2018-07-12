@@ -57,6 +57,7 @@ class Results extends Component {
     const exercisesByBodyPart = await getExercisesByBodyPart(
       this.state.bodyPart
     );
+    console.log(exercisesByBodyPart)
     if (Array.isArray(exercisesByBodyPart)) {
       this.setState({ exercisesByBodyPart });
       this.setState({ exercise: exercisesByBodyPart[0].id });
