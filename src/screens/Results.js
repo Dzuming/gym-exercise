@@ -14,9 +14,11 @@ import {
   addValueToExercise,
   getBodyParts,
   getExerciseResultByDate,
-  getExercisesByBodyPart
+  getExercisesByBodyPart,
+  removeExerciseValue
 } from "../utils/asyncStorage";
 import DatePicker from "react-native-datepicker";
+import CustomButton from "../components/CustomButton";
 
 class Results extends Component {
   static navigationOptions = {
@@ -57,7 +59,6 @@ class Results extends Component {
     const exercisesByBodyPart = await getExercisesByBodyPart(
       this.state.bodyPart
     );
-    console.log(exercisesByBodyPart)
     if (Array.isArray(exercisesByBodyPart)) {
       this.setState({ exercisesByBodyPart });
       this.setState({ exercise: exercisesByBodyPart[0].id });
@@ -73,6 +74,12 @@ class Results extends Component {
       this.setState({ exerciseResultByDate });
     }
   };
+
+  removeExerciseResult = async (exercise, itemId) => {
+    await removeExerciseValue(exercise, itemId);
+    await this.setExerciseResultByDate();
+  };
+
   async componentDidMount() {
     const bodyParts = await getBodyParts();
     if (Array.isArray(bodyParts)) {
@@ -177,9 +184,29 @@ class Results extends Component {
         <FlatList
           data={exerciseResultByDate}
           renderItem={({ item, index }) => (
-            <Text>
-              {index + 1} {item.amount} raz(y) {item.weight}kg
-            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: 5
+              }}
+            >
+              <Text>
+                {index + 1} {item.amount} raz(y) {item.weight}kg{" "}
+              </Text>
+              <CustomButton
+                buttonStyle={{
+                  marginBottom: 10,
+                  padding: 10,
+                  alignItems: "center",
+                  backgroundColor: "blue"
+                }}
+                textStyle={{ fontSize: 16, color: "white" }}
+                title={"delete"}
+                onPress={() => this.removeExerciseResult(exercise, item.id)}
+              />
+            </View>
           )}
           keyExtractor={item => item.id}
         />

@@ -78,9 +78,19 @@ function removeFromLocalStorage(key) {
   return store.delete(key);
 }
 
-export async function removeExerciseValue(id, date, resultId) {
-  const exercises = await getExerciseResultByDate(id, date);
+export async function removeExerciseValue(exerciseId, resultId) {
+  const exercises = await getExercises();
   await removeFromLocalStorage("exercises");
-  const { results } = Object.assign({}, exercises);
-  const result = await results.filter(result => result.id !== resultId);
+  const exercise = exercises.filter(exercise => exercise.id === exerciseId);
+  const exerciseToObj = Object.assign({}, ...exercise);
+  const exerciseWithRemovedResult = await Object.assign({}, exerciseToObj, {
+    results: exerciseToObj.results.filter(result => result.id !== resultId)
+  });
+  const result = exercises.map(exercise => {
+    if (exercise.id === exerciseId) {
+      return exerciseWithRemovedResult;
+    }
+    return exercise
+  });
+    return await store.save("exercises", result);
 }
