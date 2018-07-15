@@ -18,7 +18,7 @@ import {
   removeExerciseValue
 } from "../utils/asyncStorage";
 import DatePicker from "react-native-datepicker";
-import CustomButton from "../components/CustomButton";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 class Results extends Component {
   static navigationOptions = {
@@ -195,15 +195,11 @@ class Results extends Component {
               <Text>
                 {index + 1} {item.amount} raz(y) {item.weight}kg{" "}
               </Text>
-              <CustomButton
-                buttonStyle={{
-                  marginBottom: 10,
-                  padding: 10,
-                  alignItems: "center",
-                  backgroundColor: "blue"
-                }}
-                textStyle={{ fontSize: 16, color: "white" }}
-                title={"delete"}
+              <Icon.Button
+                name="trash-o"
+                size={22}
+                color="#900"
+                backgroundColor="none"
                 onPress={() => this.removeExerciseResult(exercise, item.id)}
               />
             </View>
