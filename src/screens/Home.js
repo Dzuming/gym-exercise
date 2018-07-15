@@ -19,7 +19,7 @@ class Home extends React.Component {
           return (
             <CustomButton
               key={index}
-              buttonStyle={{marginBottom: 10, padding: 10, alignItems: 'center', backgroundColor: 'blue'}}
+              buttonStyle={{marginBottom: 10, padding: 10, alignItems: 'center', backgroundColor: '#900'}}
               textStyle={{fontSize: 16, color: 'white'}}
               title={screen.title}
               onPress={() => this.props.navigation.navigate(screen.name)}
