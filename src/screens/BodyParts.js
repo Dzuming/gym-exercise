@@ -3,12 +3,9 @@ import React, { Component } from "react";
 import { Button, TextInput, Text, FlatList } from "react-native";
 import AppView from "../shared/AppView";
 import { createBodyPart, getBodyParts } from "../utils/asyncStorage";
+import I18n from "react-native-i18n";
 
 class BodyParts extends Component {
-  static navigationOptions = {
-    title: "Body parts"
-  };
-
   state = {
     bodyPart: "",
     bodyParts: [],
@@ -37,13 +34,13 @@ class BodyParts extends Component {
       <AppView headerTitle={"Body Parts"} isLoading={isLoading}>
         <TextInput
           style={{ height: 40 }}
-          placeholder="Type here body part!"
+          placeholder={I18n.t('typeBodyPart')}
           value={bodyPart}
           onChangeText={text => this.setState({ bodyPart: text })}
         />
         <Button
           onPress={this.addBodyParts}
-          title="Add body part"
+          title={I18n.t('addBodyPart')}
           color="#841584"
           accessibilityLabel="Add body part"
         />

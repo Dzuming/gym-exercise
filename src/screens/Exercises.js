@@ -6,12 +6,9 @@ import {
   getBodyParts,
   getExercisesByBodyPart
 } from "../utils/asyncStorage";
+import I18n from "react-native-i18n";
 
 class Exercises extends Component {
-  static navigationOptions = {
-    title: "Exercises"
-  };
-
   state = {
     bodyParts: [],
     exercise: {
@@ -65,7 +62,7 @@ class Exercises extends Component {
 
     return (
       <AppView isLoading={isLoading}>
-        <Text>Body part</Text>
+        <Text>{I18n.t('bodyPart')}</Text>
         <Picker
           selectedValue={exercise.bodyPart}
           onValueChange={this.setExerciseValue("bodyPart")}
@@ -80,13 +77,13 @@ class Exercises extends Component {
         </Picker>
         <TextInput
           style={{ height: 40 }}
-          placeholder="Type here exercise part!"
+          placeholder={I18n.t('typeExercise')}
           value={exercise.name}
           onChangeText={this.setExerciseValue("name")}
         />
         <Button
           onPress={this.addExercise}
-          title="Add exercise"
+          title={I18n.t('addExercise')}
           color="#841584"
           accessibilityLabel="Add body part"
         />

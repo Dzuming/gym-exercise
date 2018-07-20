@@ -2,10 +2,10 @@ import React from "react";
 import AppView from "../shared/AppView";
 import { screens } from "../constants/screens";
 import CustomButton from "../components/CustomButton";
+import I18n from "react-native-i18n";
+import {toLowerCaseFirstLetter} from "../utils/string";
+
 class Home extends React.Component {
-  static navigationOptions = {
-    title: "Home"
-  };
   render() {
     return (
       <AppView
@@ -21,7 +21,9 @@ class Home extends React.Component {
               key={index}
               buttonStyle={{marginBottom: 10, padding: 10, alignItems: 'center', backgroundColor: '#900'}}
               textStyle={{fontSize: 16, color: 'white'}}
-              title={screen.title}
+              title={I18n.t(
+                  `routeLabel.${toLowerCaseFirstLetter(screen.name)}`
+              )}
               onPress={() => this.props.navigation.navigate(screen.name)}
             />
           );

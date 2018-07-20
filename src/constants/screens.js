@@ -6,23 +6,18 @@ import Results from "../screens/Results";
 export const screens = [
   {
     name: "Home",
-    component: Home,
-    title: "Go to Home"
+    component: Home
   },
   {
     name: "BodyParts",
-    component: BodyParts,
-    title: "Go to Body parts"
+    component: BodyParts
   },
   {
     name: "Exercises",
-    component: Exercises,
-    title: "Go to Exercises"
+    component: Exercises
   },
   {
-    name: "results",
-    component: Results,
-    title: "Add Result"
+    name: "Results",
+    component: Results
   }
-  ,
 ];

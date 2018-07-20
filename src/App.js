@@ -6,12 +6,18 @@
 
 import React, { Component } from "react";
 import Screens from "./Screens";
+import Internalization from "./shared/Internalization";
+import I18n, { getLanguages } from "react-native-i18n";
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    return (
-      <Screens />
+      I18n.locale = "pl";
+
+      return (
+      <Internalization>
+        <Screens />
+      </Internalization>
     );
   }
 }

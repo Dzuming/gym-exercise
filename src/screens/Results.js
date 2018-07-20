@@ -19,12 +19,9 @@ import {
 } from "../utils/asyncStorage";
 import DatePicker from "react-native-datepicker";
 import Icon from "react-native-vector-icons/FontAwesome";
+import I18n from "react-native-i18n";
 
 class Results extends Component {
-  static navigationOptions = {
-    title: "Add result"
-  };
-
   state = {
     bodyPart: "",
     exercise: "",
@@ -134,7 +131,7 @@ class Results extends Component {
           style={{ width: Dimensions.get("window").width - 40 }}
           date={this.state.date}
           mode="date"
-          placeholder="select date"
+          placeholder={I18n.t("selectDate")}
           format="YYYY-MM-DD"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
@@ -160,7 +157,7 @@ class Results extends Component {
               height: 40,
               width: Dimensions.get("window").width / 2 - 20
             }}
-            placeholder="Type here weight!"
+            placeholder={I18n.t("typeWeight")}
             value={String(weight)}
             onChangeText={text => this.setState({ weight: text })}
           />
@@ -170,16 +167,16 @@ class Results extends Component {
               height: 40,
               width: Dimensions.get("window").width / 2 - 20
             }}
-            placeholder="Type here amount!"
+            placeholder={I18n.t("typeAmount")}
             value={String(amount)}
             onChangeText={text => this.setState({ amount: text })}
           />
         </View>
         <Button
           onPress={this.AddExerciseValue}
-          title="Add exercise value"
+          title={I18n.t("addResult")}
           color="#841584"
-          accessibilityLabel="Add exercise value"
+          accessibilityLabel={I18n.t("addResult")}
         />
         <FlatList
           data={exerciseResultByDate}
