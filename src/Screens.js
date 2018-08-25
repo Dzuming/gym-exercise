@@ -6,6 +6,7 @@ import { toLowerCaseFirstLetter } from './utils/string';
 import CustomButton from './components/CustomButton';
 import { setLanguage } from './utils/asyncStorage';
 import { LanguageContext } from './providers/LanguageProvider';
+import ImageButton from "./components/ImageButton";
 
 const screensObject = Object.assign(
   {},
@@ -17,34 +18,32 @@ const renderLanguageButton = () => {
     <LanguageContext.Consumer>
       {context =>
         context.language === 'pl' ? (
-          <CustomButton
+          <ImageButton
             onPress={() => {
               setLanguage('en').then(() => {
                 context.showLoader();
                 context.setLanguage('en');
               });
             }}
-            title="pl"
             buttonStyle={{
-              marginBottom: 10,
-              padding: 10,
-              alignItems: 'center'
+                padding: 15,
+                alignItems: 'center'
             }}
+            code={'PL'}
           />
         ) : (
-          <CustomButton
+          <ImageButton
             onPress={() =>
               setLanguage('pl').then(() => {
                 context.showLoader();
                 context.setLanguage('pl');
               })
             }
-            title="en"
             buttonStyle={{
-              marginBottom: 10,
-              padding: 10,
-              alignItems: 'center'
+                padding: 15,
+                alignItems: 'center'
             }}
+            code={'GB'}
           />
         )
       }
