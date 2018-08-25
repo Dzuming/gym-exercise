@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import I18n from 'react-native-i18n';
 import { getLanguage } from '../utils/asyncStorage';
-import { Text } from 'react-native';
-import { LanguageContext } from '../providers/LanguageProvider';
 import LanguageProvider from '../providers/LanguageProvider';
+import Loader from './Loader';
 
 class Internalization extends Component {
   constructor(props) {
@@ -20,6 +19,7 @@ class Internalization extends Component {
         addExercise: 'ADD EXERCISE',
         addBodyPart: 'ADD BODY PART',
         selectDate: 'select date',
+        amount: 'time(s)',
         routeTitle: {
           home: 'Home',
           bodyParts: 'Body Parts',
@@ -44,6 +44,7 @@ class Internalization extends Component {
         addExercise: 'DODAJ ĆWICZENIE',
         addBodyPart: 'DODAJ CZĘŚĆ CIAŁA',
         selectDate: 'wybierz datę',
+        amount: 'raz(y)',
         routeTitle: {
           home: 'Start',
           bodyParts: 'Części Ciała',
@@ -75,9 +76,8 @@ class Internalization extends Component {
   render() {
     const { children } = this.props;
     const { loading, language } = this.state;
-    console.log({ children });
     return loading ? (
-      <Text>loading...</Text>
+      <Loader />
     ) : (
       <LanguageProvider language={language}>
         {React.Children.map(children, child => React.cloneElement(child))}

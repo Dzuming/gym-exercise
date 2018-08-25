@@ -191,7 +191,7 @@ class Results extends Component {
               }}
             >
               <Text>
-                {index + 1} {item.amount} raz(y) {item.weight}kg{' '}
+                {index + 1} {item.amount} {I18n.t('amount')} {item.weight} kg
               </Text>
               <Icon.Button
                 name="trash-o"

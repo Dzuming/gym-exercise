@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import I18n from "react-native-i18n";
-import { Text } from "react-native";
+import Loader from "../shared/Loader";
 
 export const LanguageContext = React.createContext();
 
@@ -21,10 +21,9 @@ class LanguageProvider extends Component {
   }
 
   render() {
-    console.log(this.state.loading);
     return (
       <LanguageContext.Provider value={this.state}>
-        {this.state.loading ? <Text>loading...</Text> : this.props.children}
+        {this.state.loading ? <Loader /> : this.props.children}
       </LanguageContext.Provider>
     );
   }

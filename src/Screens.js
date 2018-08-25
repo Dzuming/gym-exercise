@@ -3,7 +3,6 @@ import { createStackNavigator } from 'react-navigation';
 import { screens } from './constants/screens';
 import I18n from 'react-native-i18n';
 import { toLowerCaseFirstLetter } from './utils/string';
-import CustomButton from './components/CustomButton';
 import { setLanguage } from './utils/asyncStorage';
 import { LanguageContext } from './providers/LanguageProvider';
 import ImageButton from "./components/ImageButton";
@@ -52,7 +51,6 @@ const renderLanguageButton = () => {
 };
 
 const renderName = routeName => {
-  console.log(routeName);
   return I18n.t(`routeTitle.${toLowerCaseFirstLetter(routeName)}`);
 };
 const Screens = createStackNavigator(screensObject, {

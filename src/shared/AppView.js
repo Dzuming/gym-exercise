@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 import { LanguageContext } from '../providers/LanguageProvider';
 import I18n from 'react-native-i18n';
+import Loader from "./Loader";
 
 class AppView extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class AppView extends React.Component {
     return (
       <View style={{ margin: 10 }}>
         {isLoading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <Loader  />
         ) : (
           <React.Fragment>
             <LanguageContext.Consumer>
