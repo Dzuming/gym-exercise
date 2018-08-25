@@ -94,3 +94,11 @@ export async function removeExerciseValue(exerciseId, resultId) {
   });
     return await store.save("exercises", result);
 }
+
+export function getLanguage() {
+    return store.get("language");
+}
+
+export async function setLanguage(language) {
+    return await store.save("language", language);
+}

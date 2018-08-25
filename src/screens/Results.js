@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AppView from "../shared/AppView";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AppView from '../shared/AppView';
 import {
   Picker,
   Dimensions,
@@ -9,28 +9,28 @@ import {
   Button,
   FlatList,
   Text
-} from "react-native";
+} from 'react-native';
 import {
   addValueToExercise,
   getBodyParts,
   getExerciseResultByDate,
   getExercisesByBodyPart,
   removeExerciseValue
-} from "../utils/asyncStorage";
-import DatePicker from "react-native-datepicker";
-import Icon from "react-native-vector-icons/FontAwesome";
-import I18n from "react-native-i18n";
+} from '../utils/asyncStorage';
+import DatePicker from 'react-native-datepicker';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import I18n from 'react-native-i18n';
 
 class Results extends Component {
   state = {
-    bodyPart: "",
-    exercise: "",
+    bodyPart: '',
+    exercise: '',
     exercisesByBodyPart: [],
     bodyParts: [],
     exerciseResultByDate: [],
-    date: "",
-    weight: "",
-    amount: "",
+    date: '',
+    weight: '',
+    amount: '',
     isLoading: false
   };
 
@@ -105,7 +105,8 @@ class Results extends Component {
       amount,
       exercisesByBodyPart,
       exerciseResultByDate,
-      isLoading
+      isLoading,
+      date
     } = this.state;
     return (
       <AppView isLoading={isLoading}>
@@ -128,16 +129,16 @@ class Results extends Component {
           ))}
         </Picker>
         <DatePicker
-          style={{ width: Dimensions.get("window").width - 40 }}
-          date={this.state.date}
+          style={{ width: Dimensions.get('window').width - 40 }}
+          date={date}
           mode="date"
-          placeholder={I18n.t("selectDate")}
+          placeholder={I18n.t('selectDate')}
           format="YYYY-MM-DD"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
             dateIcon: {
-              position: "absolute",
+              position: 'absolute',
               left: 0,
               top: 4,
               marginLeft: 0
@@ -150,14 +151,14 @@ class Results extends Component {
             this.setState({ date: date });
           }}
         />
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: 'row' }}>
           <TextInput
             keyboardType="numeric"
             style={{
               height: 40,
-              width: Dimensions.get("window").width / 2 - 20
+              width: Dimensions.get('window').width / 2 - 20
             }}
-            placeholder={I18n.t("typeWeight")}
+            placeholder={I18n.t('typeWeight')}
             value={String(weight)}
             onChangeText={text => this.setState({ weight: text })}
           />
@@ -165,32 +166,32 @@ class Results extends Component {
             keyboardType="numeric"
             style={{
               height: 40,
-              width: Dimensions.get("window").width / 2 - 20
+              width: Dimensions.get('window').width / 2 - 20
             }}
-            placeholder={I18n.t("typeAmount")}
+            placeholder={I18n.t('typeAmount')}
             value={String(amount)}
             onChangeText={text => this.setState({ amount: text })}
           />
         </View>
         <Button
           onPress={this.AddExerciseValue}
-          title={I18n.t("addResult")}
+          title={I18n.t('addResult')}
           color="#841584"
-          accessibilityLabel={I18n.t("addResult")}
+          accessibilityLabel={I18n.t('addResult')}
         />
         <FlatList
           data={exerciseResultByDate}
           renderItem={({ item, index }) => (
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
                 marginTop: 5
               }}
             >
               <Text>
-                {index + 1} {item.amount} raz(y) {item.weight}kg{" "}
+                {index + 1} {item.amount} raz(y) {item.weight}kg{' '}
               </Text>
               <Icon.Button
                 name="trash-o"

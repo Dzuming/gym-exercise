@@ -1,13 +1,13 @@
 // @Flow
-import React, { Component } from "react";
-import { Button, TextInput, Text, FlatList } from "react-native";
-import AppView from "../shared/AppView";
-import { createBodyPart, getBodyParts } from "../utils/asyncStorage";
-import I18n from "react-native-i18n";
+import React, { Component } from 'react';
+import { Button, TextInput, Text, FlatList } from 'react-native';
+import AppView from '../shared/AppView';
+import { createBodyPart, getBodyParts } from '../utils/asyncStorage';
+import I18n from 'react-native-i18n';
 
 class BodyParts extends Component {
   state = {
-    bodyPart: "",
+    bodyPart: '',
     bodyParts: [],
     isLoading: false
   };
@@ -31,7 +31,7 @@ class BodyParts extends Component {
   render() {
     const { bodyPart, bodyParts, isLoading } = this.state;
     return (
-      <AppView headerTitle={"Body Parts"} isLoading={isLoading}>
+      <AppView headerTitle={'Body Parts'} isLoading={isLoading}>
         <TextInput
           style={{ height: 40 }}
           placeholder={I18n.t('typeBodyPart')}

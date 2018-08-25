@@ -1,68 +1,91 @@
-import React, { Component } from "react";
-import I18n from "react-native-i18n";
+import React, { Component } from 'react';
+import I18n from 'react-native-i18n';
+import { getLanguage } from '../utils/asyncStorage';
+import { Text } from 'react-native';
+import { LanguageContext } from '../providers/LanguageProvider';
+import LanguageProvider from '../providers/LanguageProvider';
 
 class Internalization extends Component {
   constructor(props) {
     super(props);
     I18n.translations = {
       en: {
-        bodyPart: "Body part",
-        addResultTitle: "Add Result",
-        typeWeight: "Type here weight!",
-        typeAmount: "Type here amount!",
-        typeExercise: "Type here exercise!",
-        typeBodyPart: "Type here body part!",
-        addResult: "ADD EXERCISE VALUE",
-        addExercise: "ADD EXERCISE",
-        addBodyPart: "ADD BODY PART",
-        selectDate: "select date",
+        bodyPart: 'Body part',
+        addResultTitle: 'Add Result',
+        typeWeight: 'Type here weight!',
+        typeAmount: 'Type here amount!',
+        typeExercise: 'Type here exercise!',
+        typeBodyPart: 'Type here body part!',
+        addResult: 'ADD EXERCISE VALUE',
+        addExercise: 'ADD EXERCISE',
+        addBodyPart: 'ADD BODY PART',
+        selectDate: 'select date',
         routeTitle: {
-          home: "Home",
-          bodyParts: "Body Parts",
-          exercises: "Exercises",
-          results: "Result"
+          home: 'Home',
+          bodyParts: 'Body Parts',
+          exercises: 'Exercises',
+          results: 'Result'
         },
         routeLabel: {
-          home: "Go to Home",
-          bodyParts: "Go to Body parts",
-          exercises: "Go to Exercises",
-          results: "Add Result"
+          home: 'Go to Home',
+          bodyParts: 'Go to Body parts',
+          exercises: 'Go to Exercises',
+          results: 'Add Result'
         }
       },
       pl: {
-        bodyPart: "Część ciała",
-        addResultTitle: "Dodaj rezultat",
-        typeWeight: "Wpisz tutaj wagę!",
-        typeAmount: "Wpisz tutaj ilość!",
-        typeExercise: "Wpisz ćwiczenie tutaj!",
-        typeBodyPart: "Wpisz część ciała tutaj!",
-        addResult: "DODAJ WARTOŚĆ ĆWICZENIA",
-        addExercise: "DODAJ ĆWICZENIE",
-        addBodyPart: "DODAJ CZĘŚĆ CIAŁA",
-        selectDate: "wybierz datę",
+        bodyPart: 'Część ciała',
+        addResultTitle: 'Dodaj rezultat',
+        typeWeight: 'Wpisz tutaj wagę!',
+        typeAmount: 'Wpisz tutaj ilość!',
+        typeExercise: 'Wpisz ćwiczenie tutaj!',
+        typeBodyPart: 'Wpisz część ciała tutaj!',
+        addResult: 'DODAJ WARTOŚĆ ĆWICZENIA',
+        addExercise: 'DODAJ ĆWICZENIE',
+        addBodyPart: 'DODAJ CZĘŚĆ CIAŁA',
+        selectDate: 'wybierz datę',
         routeTitle: {
-          home: "Start",
-          bodyParts: "Części Ciała",
-          exercises: "Ćwiczenia",
-          results: "Wyniki"
+          home: 'Start',
+          bodyParts: 'Części Ciała',
+          exercises: 'Ćwiczenia',
+          results: 'Wyniki'
         },
         routeLabel: {
-          home: "Idź do strony głównej",
-          bodyParts: "Idź do Części Ciała",
-          exercises: "Idź od Ćwiczeń",
-          results: "Idź do Wyników"
+          home: 'Idź do strony głównej',
+          bodyParts: 'Idź do Części Ciała',
+          exercises: 'Idź od Ćwiczeń',
+          results: 'Idź do Wyników'
         }
       }
     };
-    I18n.locale = "pl";
-    I18n.fallbacks = true;
+    this.state = {
+      loading: true,
+      language: ''
+    };
+    I18n.defaultLocale = 'pl';
   }
+  async componentDidMount() {
+    const language = await getLanguage();
+    I18n.locale = language === 'pl' ? language : 'en';
+
+    this.setState({ language });
+    this.setState({ loading: false });
+  }
+
   render() {
     const { children } = this.props;
-    return children;
+    const { loading, language } = this.state;
+    console.log({ children });
+    return loading ? (
+      <Text>loading...</Text>
+    ) : (
+      <LanguageProvider language={language}>
+        {React.Children.map(children, child => React.cloneElement(child))}
+      </LanguageProvider>
+    );
   }
 }
 
-I18n.propTypes = {};
+Internalization.propTypes = {};
 
 export default Internalization;

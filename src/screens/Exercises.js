@@ -19,25 +19,6 @@ class Exercises extends Component {
     isLoading: false
   };
 
-  async componentDidMount() {
-    const bodyParts = await getBodyParts();
-
-    if (Array.isArray(bodyParts)) {
-      await this.setState({ bodyParts });
-      await this.setExerciseValue("bodyPart")(bodyParts[0].id);
-    }
-  }
-
-  async componentDidUpdate(prevProps, prevState) {
-    const { exercise } = this.state;
-    if (prevState.bodyPart !== exercise.bodyPart) {
-      const exercises = await getExercisesByBodyPart(exercise.bodyPart);
-      if (Array.isArray(exercises)) {
-        this.setState({ exercises });
-      }
-    }
-  }
-
   setExerciseValue = parameter => value => {
     let exercise = { ...this.state.exercise };
     exercise[parameter] = value;
@@ -57,12 +38,30 @@ class Exercises extends Component {
 
   showLoader = state => this.setState({ isLoading: state });
 
+  async componentDidMount() {
+    const bodyParts = await getBodyParts();
+
+    if (Array.isArray(bodyParts)) {
+      await this.setState({ bodyParts });
+      await this.setExerciseValue("bodyPart")(bodyParts[0].id);
+    }
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    const { exercise } = this.state;
+    if (prevState.exercise.bodyPart !== exercise.bodyPart) {
+      const exercises = await getExercisesByBodyPart(exercise.bodyPart);
+      if (Array.isArray(exercises)) {
+        this.setState({ exercises });
+      }
+    }
+  }
+
   render() {
     const { bodyParts, exercise, exercises, isLoading } = this.state;
-
     return (
-      <AppView isLoading={isLoading}>
-        <Text>{I18n.t('bodyPart')}</Text>
+      <AppView headerTitle={"Exercises"} isLoading={isLoading}>
+        <Text>{I18n.t("bodyPart")}</Text>
         <Picker
           selectedValue={exercise.bodyPart}
           onValueChange={this.setExerciseValue("bodyPart")}
@@ -77,13 +76,13 @@ class Exercises extends Component {
         </Picker>
         <TextInput
           style={{ height: 40 }}
-          placeholder={I18n.t('typeExercise')}
+          placeholder={I18n.t("typeExercise")}
           value={exercise.name}
           onChangeText={this.setExerciseValue("name")}
         />
         <Button
           onPress={this.addExercise}
-          title={I18n.t('addExercise')}
+          title={I18n.t("addExercise")}
           color="#841584"
           accessibilityLabel="Add body part"
         />
