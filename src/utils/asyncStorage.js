@@ -1,5 +1,6 @@
-import store from "react-native-simple-store";
-import { guid } from "./uuid";
+import store from 'react-native-simple-store';
+import { guid } from './uuid';
+import { currentDate } from './date';
 
 export async function printAsyncStorage() {
   const keys = await store.keys();
@@ -12,27 +13,51 @@ export async function clearAsyncStorage() {
 }
 
 export function getBodyParts() {
-  return store.get("bodyParts");
+  return store.get('bodyParts');
 }
 
 export function createBodyPart(name) {
-  return store.push("bodyParts", {
+  return store.push('bodyParts', {
     id: guid(),
     name
   });
 }
 
 export function getExercises() {
-  return store.get("exercises");
+  return store.get('exercises');
+}
+
+export async function getLatestExerciseResult(id) {
+  const exercises = await store.get('exercises');
+
+  const exercise = exercises.filter(exercise => exercise.id === id);
+  const results = exercise[0].results;
+
+  if (!results) {
+    return [];
+  }
+  const getLastResult = function(resultsLength) {
+    let result = results[resultsLength - 1] || [];
+    if (currentDate() === result.date) {
+      return getLastResult(resultsLength - 1);
+    }
+    return result;
+  };
+  const lastResult = getLastResult(results.length);
+
+  const latestResults = results.filter(
+    result => result.date === lastResult.date
+  );
+  return latestResults;
 }
 
 export async function getExercisesByBodyPart(bodyPart) {
-  const exercises = await store.get("exercises");
+  const exercises = await store.get('exercises');
   return exercises.filter(exercise => exercise.bodyPart === bodyPart);
 }
 
 export async function getExerciseResultByDate(id, date) {
-  const exercises = await store.get("exercises");
+  const exercises = await store.get('exercises');
   const exerciseById = await exercises.filter(exercise => exercise.id === id);
   const { results } = Object.assign({}, ...exerciseById);
   const result = await results.filter(result => result.date === date);
@@ -40,7 +65,7 @@ export async function getExerciseResultByDate(id, date) {
 }
 
 export function createExercise(exercise) {
-  return store.push("exercises", {
+  return store.push('exercises', {
     id: guid(),
     name: exercise.name,
     bodyPart: exercise.bodyPart
@@ -56,7 +81,7 @@ export async function addValueToExercise({
   weight
 }) {
   const exercises = await getExercises();
-  await removeFromLocalStorage("exercises");
+  await removeFromLocalStorage('exercises');
   await exercises.map(async exercise => {
     let result = {};
     if (exercise.id === id) {
@@ -71,7 +96,7 @@ export async function addValueToExercise({
     }
     return await exercise;
   });
-  return await store.save("exercises", exercises);
+  return await store.save('exercises', exercises);
 }
 
 function removeFromLocalStorage(key) {
@@ -80,7 +105,7 @@ function removeFromLocalStorage(key) {
 
 export async function removeExerciseValue(exerciseId, resultId) {
   const exercises = await getExercises();
-  await removeFromLocalStorage("exercises");
+  await removeFromLocalStorage('exercises');
   const exercise = exercises.filter(exercise => exercise.id === exerciseId);
   const exerciseToObj = Object.assign({}, ...exercise);
   const exerciseWithRemovedResult = await Object.assign({}, exerciseToObj, {
@@ -90,15 +115,15 @@ export async function removeExerciseValue(exerciseId, resultId) {
     if (exercise.id === exerciseId) {
       return exerciseWithRemovedResult;
     }
-    return exercise
+    return exercise;
   });
-    return await store.save("exercises", result);
+  return await store.save('exercises', result);
 }
 
 export function getLanguage() {
-    return store.get("language");
+  return store.get('language');
 }
 
 export async function setLanguage(language) {
-    return await store.save("language", language);
+  return await store.save('language', language);
 }

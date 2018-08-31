@@ -15,11 +15,13 @@ import {
   getBodyParts,
   getExerciseResultByDate,
   getExercisesByBodyPart,
+  getLatestExerciseResult,
   removeExerciseValue
 } from '../utils/asyncStorage';
 import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import I18n from 'react-native-i18n';
+import { grey } from '../shared/colors';
 
 class Results extends Component {
   state = {
@@ -28,6 +30,7 @@ class Results extends Component {
     exercisesByBodyPart: [],
     bodyParts: [],
     exerciseResultByDate: [],
+    latestExerciseResult: [],
     date: '',
     weight: '',
     amount: '',
@@ -72,6 +75,15 @@ class Results extends Component {
     }
   };
 
+  setLatestExerciseResult = async () => {
+    const latestExerciseResult = await getLatestExerciseResult(
+      this.state.exercise
+    );
+    if (Array.isArray(latestExerciseResult)) {
+      this.setState({ latestExerciseResult });
+    }
+  };
+
   removeExerciseResult = async (exercise, itemId) => {
     await removeExerciseValue(exercise, itemId);
     await this.setExerciseResultByDate();
@@ -92,6 +104,7 @@ class Results extends Component {
       prevState.exercise !== this.state.exercise ||
       prevState.date !== this.state.date
     ) {
+      await this.setLatestExerciseResult();
       await this.setExerciseResultByDate();
     }
   }
@@ -105,6 +118,7 @@ class Results extends Component {
       amount,
       exercisesByBodyPart,
       exerciseResultByDate,
+      latestExerciseResult,
       isLoading,
       date
     } = this.state;
@@ -179,6 +193,27 @@ class Results extends Component {
           color="#841584"
           accessibilityLabel={I18n.t('addResult')}
         />
+        <View style={{ marginTop: 10,borderWidth: 1, borderColor: 'black', padding: 5 }}>
+          <Text>{I18n.t('lastResult')}:</Text>
+          <FlatList
+            data={latestExerciseResult}
+            renderItem={({ item, index }) => (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginTop: 5
+                }}
+              >
+                <Text>
+                  {index + 1} {item.amount} {I18n.t('amount')} {item.weight} kg
+                </Text>
+              </View>
+            )}
+            keyExtractor={item => item.id}
+          />
+        </View>
         <FlatList
           data={exerciseResultByDate}
           renderItem={({ item, index }) => (
@@ -197,7 +232,7 @@ class Results extends Component {
                 name="trash-o"
                 size={22}
                 color="#900"
-                backgroundColor="none"
+                backgroundColor={grey}
                 onPress={() => this.removeExerciseResult(exercise, item.id)}
               />
             </View>

@@ -20,6 +20,7 @@ class Internalization extends Component {
         addBodyPart: 'ADD BODY PART',
         selectDate: 'select date',
         amount: 'time(s)',
+        lastResult: 'last result',
         routeTitle: {
           home: 'Home',
           bodyParts: 'Body Parts',
@@ -45,6 +46,7 @@ class Internalization extends Component {
         addBodyPart: 'DODAJ CZĘŚĆ CIAŁA',
         selectDate: 'wybierz datę',
         amount: 'raz(y)',
+        lastResult: 'odtstni rezultat',
         routeTitle: {
           home: 'Start',
           bodyParts: 'Części Ciała',
