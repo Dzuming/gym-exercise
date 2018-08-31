@@ -8,7 +8,8 @@ import {
   View,
   Button,
   FlatList,
-  Text
+  Text,
+  ToastAndroid
 } from 'react-native';
 import {
   addValueToExercise,
@@ -22,6 +23,7 @@ import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import I18n from 'react-native-i18n';
 import { grey } from '../shared/colors';
+import { validate } from '../utils/validate';
 
 class Results extends Component {
   state = {
@@ -42,6 +44,10 @@ class Results extends Component {
 
   AddExerciseValue = async () => {
     const { exercise, date, amount, weight } = this.state;
+    if (!validate({ exercise, date, amount, weight })) {
+      ToastAndroid.show(I18n.t('validateResultError'), ToastAndroid.LONG);
+      return;
+    }
     this.showLoader(true);
     await addValueToExercise({
       id: exercise,
@@ -193,7 +199,14 @@ class Results extends Component {
           color="#841584"
           accessibilityLabel={I18n.t('addResult')}
         />
-        <View style={{ marginTop: 10,borderWidth: 1, borderColor: 'black', padding: 5 }}>
+        <View
+          style={{
+            marginTop: 10,
+            borderWidth: 1,
+            borderColor: 'black',
+            padding: 5
+          }}
+        >
           <Text>{I18n.t('lastResult')}:</Text>
           <FlatList
             data={latestExerciseResult}

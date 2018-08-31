@@ -21,6 +21,7 @@ class Internalization extends Component {
         selectDate: 'select date',
         amount: 'time(s)',
         lastResult: 'last result',
+        validateResultError: 'You need to fill in all data!',
         routeTitle: {
           home: 'Home',
           bodyParts: 'Body Parts',
@@ -46,7 +47,8 @@ class Internalization extends Component {
         addBodyPart: 'DODAJ CZĘŚĆ CIAŁA',
         selectDate: 'wybierz datę',
         amount: 'raz(y)',
-        lastResult: 'odtstni rezultat',
+        lastResult: 'ostatni rezultat',
+        validateResultError: 'Musisz wypełnić wszystkie dane!',
         routeTitle: {
           home: 'Start',
           bodyParts: 'Części Ciała',
