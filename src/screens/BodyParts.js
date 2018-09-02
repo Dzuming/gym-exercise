@@ -1,9 +1,10 @@
 // @Flow
 import React, { Component } from 'react';
-import { Button, TextInput, Text, FlatList } from 'react-native';
+import { Button, FlatList, TextInput } from 'react-native';
 import AppView from '../shared/AppView';
 import { createBodyPart, getBodyParts } from '../utils/asyncStorage';
 import I18n from 'react-native-i18n';
+import BodyPartsList from './BodyPartsList';
 
 class BodyParts extends Component {
   state = {
@@ -20,16 +21,22 @@ class BodyParts extends Component {
     });
   };
 
-  async componentDidMount() {
+  getBodyParts = async () => {
     const bodyParts = await getBodyParts();
     if (Array.isArray(bodyParts)) {
       this.setState({ bodyParts });
     }
+  };
+
+  async componentDidMount() {
+    await this.getBodyParts();
   }
 
   showLoader = state => this.setState({ isLoading: state });
+
   render() {
     const { bodyPart, bodyParts, isLoading } = this.state;
+
     return (
       <AppView headerTitle={'Body Parts'} isLoading={isLoading}>
         <TextInput
@@ -46,10 +53,13 @@ class BodyParts extends Component {
         />
         <FlatList
           data={bodyParts}
+          extraData={this.state}
           renderItem={({ item, index }) => (
-            <Text>
-              {index + 1} {item.name}
-            </Text>
+            <BodyPartsList
+              item={item}
+              index={index}
+              getBodyParts={this.getBodyParts}
+            />
           )}
           keyExtractor={item => item.id}
         />

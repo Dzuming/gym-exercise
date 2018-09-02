@@ -23,6 +23,17 @@ export function createBodyPart(name) {
   });
 }
 
+export async function editBodyPart(editedBodyPart) {
+  let bodyParts = await store.get('bodyParts');
+  bodyParts.map(bodyPart => {
+    if (editedBodyPart.id === bodyPart.id) {
+      bodyPart.name = editedBodyPart.name;
+    }
+    return bodyPart;
+  });
+  return await store.save('bodyParts', bodyParts);
+}
+
 export function getExercises() {
   return store.get('exercises');
 }
