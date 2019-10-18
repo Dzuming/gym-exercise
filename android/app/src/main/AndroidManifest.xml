@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gymexercise">
+    package="com.gymExercise">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -21,10 +21,6 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-        <meta-data
-                android:name="io.fabric.ApiKey"
-                android:value="63b98e6ad6022ebe72628888e13969e90c164d42"
-        />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { screens } from './constants/screens';
 import I18n from 'react-native-i18n';
 import { toLowerCaseFirstLetter } from './utils/string';
@@ -67,4 +68,4 @@ const Screens = createStackNavigator(screensObject, {
   })
 });
 
-export default Screens;
+export default createAppContainer(Screens);
