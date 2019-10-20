@@ -2,7 +2,7 @@ import React from 'react';
 import AppView from '../shared/AppView';
 import {screens} from '../constants/screens';
 import CustomButton from '../components/CustomButton';
-import I18n from 'react-native-i18n';
+import I18n from 'i18next';
 import {toLowerCaseFirstLetter} from '../utils/string';
 
 class Home extends React.Component {
@@ -28,7 +28,7 @@ class Home extends React.Component {
                 }}
                 textStyle={{fontSize: 16, color: 'white'}}
                 title={I18n.t(
-                  `routeLabel.${toLowerCaseFirstLetter(screen.name)}`,
+                  `routeLabel.bodyParts`,
                 )}
                 onPress={() => navigation.navigate(screen.name)}
               />

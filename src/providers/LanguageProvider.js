@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import I18n from 'react-native-i18n';
+import I18n from 'i18next';
 import Loader from '../shared/Loader';
 
 export const LanguageContext = React.createContext();

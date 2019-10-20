@@ -21,7 +21,7 @@ import {
 } from '../utils/asyncStorage';
 import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import I18n from 'react-native-i18n';
+import I18n from 'i18next';
 import {grey} from '../shared/colors';
 import {validate} from '../utils/validate';
 

@@ -6,7 +6,7 @@ import {
   getBodyParts,
   getExercisesByBodyPart,
 } from '../utils/asyncStorage';
-import I18n from 'react-native-i18n';
+import I18n from 'i18next';
 
 class Exercises extends Component {
   state = {
