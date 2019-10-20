@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import AppView from '../shared/AppView';
 import {
@@ -9,7 +9,7 @@ import {
   Button,
   FlatList,
   Text,
-  ToastAndroid
+  ToastAndroid,
 } from 'react-native';
 import {
   addValueToExercise,
@@ -17,13 +17,13 @@ import {
   getExerciseResultByDate,
   getExercisesByBodyPart,
   getLatestExerciseResult,
-  removeExerciseValue
+  removeExerciseValue,
 } from '../utils/asyncStorage';
 import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import I18n from 'react-native-i18n';
-import { grey } from '../shared/colors';
-import { validate } from '../utils/validate';
+import {grey} from '../shared/colors';
+import {validate} from '../utils/validate';
 
 class Results extends Component {
   state = {
@@ -36,15 +36,15 @@ class Results extends Component {
     date: '',
     weight: '',
     amount: '',
-    isLoading: false
+    isLoading: false,
   };
 
-  setBodyPart = value => this.setState({ bodyPart: value });
-  setExercise = value => this.setState({ exercise: value });
+  setBodyPart = value => this.setState({bodyPart: value});
+  setExercise = value => this.setState({exercise: value});
 
   AddExerciseValue = async () => {
-    const { exercise, date, amount, weight } = this.state;
-    if (!validate({ exercise, date, amount, weight })) {
+    const {exercise, date, amount, weight} = this.state;
+    if (!validate({exercise, date, amount, weight})) {
       ToastAndroid.show(I18n.t('validateResultError'), ToastAndroid.LONG);
       return;
     }
@@ -53,40 +53,40 @@ class Results extends Component {
       id: exercise,
       date,
       amount,
-      weight
+      weight,
     });
     await this.showLoader(false);
     await this.setExerciseResultByDate();
   };
 
-  showLoader = state => this.setState({ isLoading: state });
+  showLoader = state => this.setState({isLoading: state});
 
   setExerciseByBodyPart = async () => {
     const exercisesByBodyPart = await getExercisesByBodyPart(
-      this.state.bodyPart
+      this.state.bodyPart,
     );
     if (Array.isArray(exercisesByBodyPart)) {
-      this.setState({ exercisesByBodyPart });
-      this.setState({ exercise: exercisesByBodyPart[0].id });
+      this.setState({exercisesByBodyPart});
+      this.setState({exercise: exercisesByBodyPart[0].id});
     }
   };
 
   setExerciseResultByDate = async () => {
     const exerciseResultByDate = await getExerciseResultByDate(
       this.state.exercise,
-      this.state.date
+      this.state.date,
     );
     if (Array.isArray(exerciseResultByDate)) {
-      this.setState({ exerciseResultByDate });
+      this.setState({exerciseResultByDate});
     }
   };
 
   setLatestExerciseResult = async () => {
     const latestExerciseResult = await getLatestExerciseResult(
-      this.state.exercise
+      this.state.exercise,
     );
     if (Array.isArray(latestExerciseResult)) {
-      this.setState({ latestExerciseResult });
+      this.setState({latestExerciseResult});
     }
   };
 
@@ -98,8 +98,8 @@ class Results extends Component {
   async componentDidMount() {
     const bodyParts = await getBodyParts();
     if (Array.isArray(bodyParts)) {
-      this.setState({ bodyParts });
-      this.setState({ bodyPart: bodyParts[0].id });
+      this.setState({bodyParts});
+      this.setState({bodyPart: bodyParts[0].id});
     }
   }
   async componentDidUpdate(prevProps, prevState) {
@@ -126,7 +126,7 @@ class Results extends Component {
       exerciseResultByDate,
       latestExerciseResult,
       isLoading,
-      date
+      date,
     } = this.state;
     return (
       <AppView isLoading={isLoading}>
@@ -149,7 +149,7 @@ class Results extends Component {
           ))}
         </Picker>
         <DatePicker
-          style={{ width: Dimensions.get('window').width - 40 }}
+          style={{width: Dimensions.get('window').width - 40}}
           date={date}
           mode="date"
           placeholder={I18n.t('selectDate')}
@@ -161,36 +161,36 @@ class Results extends Component {
               position: 'absolute',
               left: 0,
               top: 4,
-              marginLeft: 0
+              marginLeft: 0,
             },
             dateInput: {
-              marginLeft: 36
-            }
+              marginLeft: 36,
+            },
           }}
           onDateChange={date => {
-            this.setState({ date: date });
+            this.setState({date: date});
           }}
         />
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{flexDirection: 'row'}}>
           <TextInput
             keyboardType="numeric"
             style={{
               height: 40,
-              width: Dimensions.get('window').width / 2 - 20
+              width: Dimensions.get('window').width / 2 - 20,
             }}
             placeholder={I18n.t('typeWeight')}
             value={String(weight)}
-            onChangeText={text => this.setState({ weight: text })}
+            onChangeText={text => this.setState({weight: text})}
           />
           <TextInput
             keyboardType="numeric"
             style={{
               height: 40,
-              width: Dimensions.get('window').width / 2 - 20
+              width: Dimensions.get('window').width / 2 - 20,
             }}
             placeholder={I18n.t('typeAmount')}
             value={String(amount)}
-            onChangeText={text => this.setState({ amount: text })}
+            onChangeText={text => this.setState({amount: text})}
           />
         </View>
         <Button
@@ -204,21 +204,19 @@ class Results extends Component {
             marginTop: 10,
             borderWidth: 1,
             borderColor: 'black',
-            padding: 5
-          }}
-        >
+            padding: 5,
+          }}>
           <Text>{I18n.t('lastResult')}:</Text>
           <FlatList
             data={latestExerciseResult}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginTop: 5
-                }}
-              >
+                  marginTop: 5,
+                }}>
                 <Text>
                   {index + 1} {item.amount} {I18n.t('amount')} {item.weight} kg
                 </Text>
@@ -229,15 +227,14 @@ class Results extends Component {
         </View>
         <FlatList
           data={exerciseResultByDate}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginTop: 5
-              }}
-            >
+                marginTop: 5,
+              }}>
               <Text>
                 {index + 1} {item.amount} {I18n.t('amount')} {item.weight} kg
               </Text>

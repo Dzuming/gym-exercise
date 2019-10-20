@@ -1,8 +1,8 @@
 // @Flow
-import React, { Component } from 'react';
-import { Button, FlatList, TextInput } from 'react-native';
+import React, {Component} from 'react';
+import {Button, FlatList, TextInput} from 'react-native';
 import AppView from '../shared/AppView';
-import { createBodyPart, getBodyParts } from '../utils/asyncStorage';
+import {createBodyPart, getBodyParts} from '../utils/asyncStorage';
 import I18n from 'react-native-i18n';
 import BodyPartsList from './BodyPartsList';
 
@@ -10,13 +10,13 @@ class BodyParts extends Component {
   state = {
     bodyPart: '',
     bodyParts: [],
-    isLoading: false
+    isLoading: false,
   };
 
   addBodyParts = () => {
     this.showLoader(true);
     createBodyPart(this.state.bodyPart).then(async () => {
-      this.setState({ bodyParts: await getBodyParts() });
+      this.setState({bodyParts: await getBodyParts()});
       this.showLoader(false);
     });
   };
@@ -24,7 +24,7 @@ class BodyParts extends Component {
   getBodyParts = async () => {
     const bodyParts = await getBodyParts();
     if (Array.isArray(bodyParts)) {
-      this.setState({ bodyParts });
+      this.setState({bodyParts});
     }
   };
 
@@ -32,18 +32,18 @@ class BodyParts extends Component {
     await this.getBodyParts();
   }
 
-  showLoader = state => this.setState({ isLoading: state });
+  showLoader = state => this.setState({isLoading: state});
 
   render() {
-    const { bodyPart, bodyParts, isLoading } = this.state;
+    const {bodyPart, bodyParts, isLoading} = this.state;
 
     return (
       <AppView headerTitle={'Body Parts'} isLoading={isLoading}>
         <TextInput
-          style={{ height: 40 }}
+          style={{height: 40}}
           placeholder={I18n.t('typeBodyPart')}
           value={bodyPart}
-          onChangeText={text => this.setState({ bodyPart: text })}
+          onChangeText={text => this.setState({bodyPart: text})}
         />
         <Button
           onPress={this.addBodyParts}
@@ -54,7 +54,7 @@ class BodyParts extends Component {
         <FlatList
           data={bodyParts}
           extraData={this.state}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <BodyPartsList
               item={item}
               index={index}

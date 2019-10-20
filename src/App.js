@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Screens from './Screens';
 import Internalization from './shared/Internalization';
 

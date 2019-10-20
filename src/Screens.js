@@ -1,16 +1,16 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { screens } from './constants/screens';
+import {createAppContainer} from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {screens} from './constants/screens';
 import I18n from 'react-native-i18n';
-import { toLowerCaseFirstLetter } from './utils/string';
-import { setLanguage } from './utils/asyncStorage';
-import { LanguageContext } from './providers/LanguageProvider';
-import ImageButton from "./components/ImageButton";
+import {toLowerCaseFirstLetter} from './utils/string';
+import {setLanguage} from './utils/asyncStorage';
+import {LanguageContext} from './providers/LanguageProvider';
+import ImageButton from './components/ImageButton';
 
 const screensObject = Object.assign(
   {},
-  ...screens.map(screen => ({ [screen.name]: screen.component }))
+  ...screens.map(screen => ({[screen.name]: screen.component})),
 );
 
 const renderLanguageButton = () => {
@@ -26,8 +26,8 @@ const renderLanguageButton = () => {
               });
             }}
             buttonStyle={{
-                padding: 15,
-                alignItems: 'center'
+              padding: 15,
+              alignItems: 'center',
             }}
             code={'PL'}
           />
@@ -40,8 +40,8 @@ const renderLanguageButton = () => {
               })
             }
             buttonStyle={{
-                padding: 15,
-                alignItems: 'center'
+              padding: 15,
+              alignItems: 'center',
             }}
             code={'GB'}
           />
@@ -54,18 +54,18 @@ const renderLanguageButton = () => {
 const renderName = routeName => {
   return I18n.t(`routeTitle.${toLowerCaseFirstLetter(routeName)}`);
 };
-const Screens = createStackNavigator(screensObject, {
-  navigationOptions: ({ navigation }) => ({
+const Screens = createBottomTabNavigator(screensObject, {
+  navigationOptions: ({navigation}) => ({
     title: renderName(navigation.state.routeName),
     headerStyle: {
-      backgroundColor: '#f4511e'
+      backgroundColor: '#f4511e',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
-    headerRight: renderLanguageButton()
-  })
+    headerRight: renderLanguageButton(),
+  }),
 });
 
 export default createAppContainer(Screens);

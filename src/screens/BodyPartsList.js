@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import React, {Component} from 'react';
+import {Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { grey } from '../shared/colors';
-import { editBodyPart } from '../utils/asyncStorage';
+import {grey} from '../shared/colors';
+import {editBodyPart} from '../utils/asyncStorage';
 
 class BodyPartsList extends Component {
   state = {
     editButtonState: 'notClicked',
-    editedBodyPart: ''
+    editedBodyPart: '',
   };
 
   renderItem() {
-    const { item, index } = this.props;
-    const { editButtonState, editedBodyPart } = this.state;
+    const {item, index} = this.props;
+    const {editButtonState, editedBodyPart} = this.state;
 
     return (
       <View
@@ -20,9 +20,8 @@ class BodyPartsList extends Component {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginTop: 5
-        }}
-      >
+          marginTop: 5,
+        }}>
         {editButtonState === 'notClicked' && (
           <React.Fragment>
             <Text>
@@ -40,11 +39,11 @@ class BodyPartsList extends Component {
         {editButtonState === 'clicked' && (
           <React.Fragment>
             <TextInput
-              onChangeText={editedBodyPart => this.setState({ editedBodyPart })}
+              onChangeText={editedBodyPart => this.setState({editedBodyPart})}
               value={editedBodyPart}
               onSubmitEditing={() => this.editBodyPart(item.id)}
             />
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{flexDirection: 'row'}}>
               <Icon.Button
                 name="check"
                 size={22}
@@ -67,20 +66,20 @@ class BodyPartsList extends Component {
   }
 
   editBodyPart = async bodyId => {
-    const { editedBodyPart } = this.state;
-    const { getBodyParts } = this.props;
+    const {editedBodyPart} = this.state;
+    const {getBodyParts} = this.props;
     this.setEditButtonState('notClicked');
-    await editBodyPart({ id: bodyId, name: editedBodyPart });
+    await editBodyPart({id: bodyId, name: editedBodyPart});
     await getBodyParts();
   };
 
   setEditButtonState = editButtonState => {
-    return this.setState({ editButtonState });
+    return this.setState({editButtonState});
   };
 
   componentDidMount() {
-    const { item } = this.props;
-    this.setState({ editedBodyPart: item.name });
+    const {item} = this.props;
+    this.setState({editedBodyPart: item.name});
   }
 
   render() {

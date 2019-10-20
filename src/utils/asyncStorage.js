@@ -1,6 +1,6 @@
 import store from 'react-native-simple-store';
-import { guid } from './uuid';
-import { currentDate } from './date';
+import {guid} from './uuid';
+import {currentDate} from './date';
 
 export async function printAsyncStorage() {
   const keys = await store.keys();
@@ -19,7 +19,7 @@ export function getBodyParts() {
 export function createBodyPart(name) {
   return store.push('bodyParts', {
     id: guid(),
-    name
+    name,
   });
 }
 
@@ -57,7 +57,7 @@ export async function getLatestExerciseResult(id) {
   const lastResult = getLastResult(results.length);
 
   const latestResults = results.filter(
-    result => result.date === lastResult.date
+    result => result.date === lastResult.date,
   );
   return latestResults;
 }
@@ -70,7 +70,7 @@ export async function getExercisesByBodyPart(bodyPart) {
 export async function getExerciseResultByDate(id, date) {
   const exercises = await store.get('exercises');
   const exerciseById = await exercises.filter(exercise => exercise.id === id);
-  const { results } = Object.assign({}, ...exerciseById);
+  const {results} = Object.assign({}, ...exerciseById);
   const result = await results.filter(result => result.date === date);
   return await result;
 }
@@ -79,7 +79,7 @@ export function createExercise(exercise) {
   return store.push('exercises', {
     id: guid(),
     name: exercise.name,
-    bodyPart: exercise.bodyPart
+    bodyPart: exercise.bodyPart,
   });
 }
 
@@ -89,7 +89,7 @@ export async function addValueToExercise({
   bodyPart,
   date,
   amount,
-  weight
+  weight,
 }) {
   const exercises = await getExercises();
   await removeFromLocalStorage('exercises');
@@ -120,7 +120,7 @@ export async function removeExerciseValue(exerciseId, resultId) {
   const exercise = exercises.filter(exercise => exercise.id === exerciseId);
   const exerciseToObj = Object.assign({}, ...exercise);
   const exerciseWithRemovedResult = await Object.assign({}, exerciseToObj, {
-    results: exerciseToObj.results.filter(result => result.id !== resultId)
+    results: exerciseToObj.results.filter(result => result.id !== resultId),
   });
   const result = exercises.map(exercise => {
     if (exercise.id === exerciseId) {

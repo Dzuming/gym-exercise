@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {Text, TouchableOpacity} from "react-native";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Text, TouchableOpacity} from 'react-native';
 
-const CustomButton = ({ onPress, buttonStyle, textStyle, title }) => {
+const CustomButton = ({onPress, buttonStyle, textStyle, title}) => {
   return (
-      <TouchableOpacity  onPress={onPress} style={buttonStyle}>
-          <Text style={textStyle}>{title}</Text>
-      </TouchableOpacity>
+    <TouchableOpacity onPress={onPress} style={buttonStyle}>
+      <Text style={textStyle}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 

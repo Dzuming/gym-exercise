@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import I18n from 'react-native-i18n';
-import { getLanguage } from '../utils/asyncStorage';
+import {getLanguage} from '../utils/asyncStorage';
 import LanguageProvider from '../providers/LanguageProvider';
 import Loader from './Loader';
 
@@ -26,14 +26,14 @@ class Internalization extends Component {
           home: 'Home',
           bodyParts: 'Body Parts',
           exercises: 'Exercises',
-          results: 'Result'
+          results: 'Result',
         },
         routeLabel: {
           home: 'Go to Home',
           bodyParts: 'Go to Body parts',
           exercises: 'Go to Exercises',
-          results: 'Add Result'
-        }
+          results: 'Add Result',
+        },
       },
       pl: {
         bodyPart: 'Część ciała',
@@ -53,19 +53,19 @@ class Internalization extends Component {
           home: 'Start',
           bodyParts: 'Części Ciała',
           exercises: 'Ćwiczenia',
-          results: 'Wyniki'
+          results: 'Wyniki',
         },
         routeLabel: {
           home: 'Idź do strony głównej',
           bodyParts: 'Idź do Części Ciała',
           exercises: 'Idź od Ćwiczeń',
-          results: 'Idź do Wyników'
-        }
-      }
+          results: 'Idź do Wyników',
+        },
+      },
     };
     this.state = {
       loading: true,
-      language: ''
+      language: '',
     };
     I18n.defaultLocale = 'pl';
   }
@@ -73,13 +73,13 @@ class Internalization extends Component {
     const language = await getLanguage();
     I18n.locale = language === 'pl' ? language : 'en';
 
-    this.setState({ language });
-    this.setState({ loading: false });
+    this.setState({language});
+    this.setState({loading: false});
   }
 
   render() {
-    const { children } = this.props;
-    const { loading, language } = this.state;
+    const {children} = this.props;
+    const {loading, language} = this.state;
     return loading ? (
       <Loader />
     ) : (

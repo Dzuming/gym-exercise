@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
 class Loader extends Component {
   render() {
@@ -15,13 +15,13 @@ class Loader extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   horizontal: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 10
-  }
+    padding: 10,
+  },
 });
 
 Loader.propTypes = {};
