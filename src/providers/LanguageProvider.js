@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import I18n from 'i18next';
-import Loader from '../shared/Loader';
+import Loader from '../components/Loader';
 
 export const LanguageContext = React.createContext();
 
