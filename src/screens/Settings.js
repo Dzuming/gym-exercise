@@ -6,12 +6,12 @@ import {Text} from 'react-native';
 
 interface IProps {}
 
-const Home: React$StatelessFunctionalComponent<IProps> = (): React$Element<any> => {
+const Settings: React$StatelessFunctionalComponent<IProps> = (): React$Element<any> => {
   return (
     <AppView>
-      <Text>Home</Text>
+      <Text>Settings</Text>
     </AppView>
   );
 };
 
-export default Home;
+export default Settings;
