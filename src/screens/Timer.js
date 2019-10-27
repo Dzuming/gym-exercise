@@ -1,17 +1,23 @@
 // @flow
-
-import * as React from 'react';
+import React from 'react';
 import {AppView} from '../components/app-view';
 import {Text} from 'react-native';
-
-interface IProps {}
-
-const Timer: React$StatelessFunctionalComponent<IProps> = (): React$Element<any> => {
+import withObservables from '@nozbe/with-observables';
+interface IProps {
+  post: any;
+}
+const Timer: React$StatelessFunctionalComponent<IProps> = ({
+  post,
+}): React$Element<any> => {
   return (
     <AppView>
-      <Text>Timer</Text>
+      <Text>timer</Text>
     </AppView>
   );
 };
 
-export default Timer;
+const enhance: any = withObservables(['post'], ({post}) => ({
+  post: post.observe(),
+}));
+
+export default enhance(Timer);

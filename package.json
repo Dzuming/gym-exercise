@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@nozbe/watermelondb": "^0.14.1",
+    "@nozbe/with-observables": "^1.0.5",
     "@react-native-community/async-storage": "^1.6.2",
     "flow-bin": "^0.105.2",
     "flow-typed": "^2.6.1",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
