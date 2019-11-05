@@ -1,41 +1,66 @@
 import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {screens} from '../constants/screens';
-import {IScreen} from '../types/IScreen';
 import {silverChalice, jade} from '../constants/colors';
-import Timer from '../screens/Timer';
-
-const screensObject = Object.assign(
-  {},
-  ...screens.map(screen => ({[screen.name]: screen.component})),
-);
+import {Meals, Settings, Home, Gym, Timer} from '../screens';
+import {TabIcon} from '../components/tab-icon';
 
 export const createNavigation = props =>
   createAppContainer(
     createBottomTabNavigator(
       {
         Timer: {
-          screen: ({navigation}) => {
-            const post = navigation.state.params.database.collections
-              .get('posts')
-              .query()
-              .fetch();
-            console.log(navigation)
-            return <Timer post={post} />;
+          screen: () => {
+            return <Timer />;
           },
+          navigationOptions: () => ({
+            tabBarIcon: ({tintColor}) => (
+              <TabIcon name={'timer'} color={tintColor} />
+            ),
+          }),
+        },
+        Meals: {
+          screen: () => {
+            return <Meals />;
+          },
+          navigationOptions: () => ({
+            tabBarIcon: ({tintColor}) => (
+              <TabIcon name={'local-dining'} color={tintColor} />
+            ),
+          }),
+        },
+        Home: {
+          screen: () => {
+            return <Home />;
+          },
+          navigationOptions: () => ({
+            tabBarIcon: ({tintColor}) => (
+              <TabIcon name={'home'} color={tintColor} />
+            ),
+          }),
+        },
+        Gym: {
+          screen: () => {
+            return <Gym />;
+          },
+          navigationOptions: () => ({
+            tabBarIcon: ({tintColor}) => (
+              <TabIcon name={'fitness-center'} color={tintColor} />
+            ),
+          }),
+        },
+        Settings: {
+          screen: () => {
+            return <Settings />;
+          },
+          navigationOptions: () => ({
+            tabBarIcon: ({tintColor}) => (
+              <TabIcon name={'settings-input-composite'} color={tintColor} />
+            ),
+          }),
         },
       },
       {
-        defaultNavigationOptions: ({navigation}) => ({
-          tabBarIcon: ({tintColor}) => {
-            const {routeName} = navigation.state;
-            const currentScreen: IScreen = screens.find(
-              (screen: IScreen) => screen.name === routeName,
-            );
-            return screens[0].icon(tintColor);
-          },
-        }),
         initialRouteParams: props,
         initialRouteName: 'Timer',
         tabBarOptions: {
