@@ -8,7 +8,7 @@ interface IProps {}
 
 const Gym: React$StatelessFunctionalComponent<IProps> = (): React$Element<any> => {
   return (
-    <AppView>
+    <AppView title={'Gym'}>
       <Text>Gym</Text>
     </AppView>
   );

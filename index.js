@@ -2,7 +2,7 @@ import {AppRegistry} from 'react-native';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 import {mySchema} from './src/model/schema';
 import Database from '@nozbe/watermelondb/src/Database';
-import Post from './src/model/Post';
+import Dish from './src/model/Dish';
 import {createNavigation} from './src/utils/navigation';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
@@ -79,7 +79,7 @@ const adapter = new SQLiteAdapter({
 
 const database = new Database({
   adapter,
-  modelClasses: [Post],
+  modelClasses: [Dish],
   actionsEnabled: true,
 });
 

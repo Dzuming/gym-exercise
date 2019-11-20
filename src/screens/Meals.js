@@ -1,15 +1,32 @@
 // @flow
 
-import * as React from 'react';
+import React, {useEffect, useState, StatelessFunctionalComponent} from 'react';
 import {AppView} from '../components/app-view';
-import {Text} from 'react-native';
+import {FlatList} from 'react-native';
+import {Dish} from '../components/dish';
+import type {IDish} from '../types/IMeals';
 
-interface IProps {}
+interface IProps {
+  fetchDishes: () => void;
+}
 
-const Meals: React$StatelessFunctionalComponent<IProps> = (): React$Element<any> => {
+const Meals: StatelessFunctionalComponent<IProps> = ({
+  fetchDishes,
+}): React$Element => {
+  const [dishes, setDishes] = useState<IDish[]>([]);
+  useEffect(() => {
+    async function getDishes() {
+      setDishes(await fetchDishes);
+    }
+    getDishes();
+  }, [fetchDishes]);
   return (
-    <AppView>
-      <Text>Meals</Text>
+    <AppView title={'Meals'}>
+      <FlatList
+        data={dishes}
+        renderItem={({item}) => <Dish dish={item} />}
+        keyExtractor={item => item.id}
+      />
     </AppView>
   );
 };

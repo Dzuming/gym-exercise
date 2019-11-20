@@ -4,7 +4,6 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {silverChalice, jade} from '../constants/colors';
 import {Meals, Settings, Home, Gym, Timer} from '../screens';
 import {TabIcon} from '../components/tab-icon';
-
 export const createNavigation = props =>
   createAppContainer(
     createBottomTabNavigator(
@@ -21,7 +20,10 @@ export const createNavigation = props =>
         },
         Meals: {
           screen: () => {
-            return <Meals />;
+            const {database} = props;
+            const dishesCollection = database.collections.get('dishes');
+            const fetchDishes = dishesCollection.query().fetch();
+            return <Meals fetchDishes={fetchDishes} />;
           },
           navigationOptions: () => ({
             tabBarIcon: ({tintColor}) => (

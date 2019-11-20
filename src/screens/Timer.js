@@ -5,7 +5,7 @@ import {Text} from 'react-native';
 interface IProps {}
 const Timer: React$StatelessFunctionalComponent<IProps> = (): React$Element<any> => {
   return (
-    <AppView>
+    <AppView title={'Timer'}>
       <Text>Timer</Text>
     </AppView>
   );
