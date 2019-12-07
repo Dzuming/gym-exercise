@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import {white, tango} from '../../constants/colors';
-import {StyledText} from '../shared/styles/text';
+import {white, tango} from '../../../constants/colors';
+import {StyledText} from '../../shared/styles/text';
 
 export const StyledRoot = styled.View`
   display: flex;

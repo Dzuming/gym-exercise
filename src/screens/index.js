@@ -1,7 +1,7 @@
 import Gym from './Gym';
 import Home from './Home';
-import Meals from './Meals';
+import Products from './Products';
 import Settings from './Settings';
 import Timer from './Timer';
 
-export {Gym, Home, Meals, Settings, Timer};
+export {Gym, Home, Products, Settings, Timer};

@@ -11,10 +11,10 @@ import {
   StyledRoot,
   StyledRow,
 } from './styles';
-import {StyledText} from '../shared/styles/text';
-import {calculateCalories, getNutritionalValue} from '../../utils/calculate';
-import type {IDish} from '../../types/IMeals';
-import {defaultDish} from '../../constants/images';
+import {StyledText} from '../../shared/styles/text';
+import {calculateCalories, getNutritionalValue} from '../../../utils/calculate';
+import type {IDish} from '../../../types/IMeals';
+import {defaultDish} from '../../../constants/images';
 
 interface IProps {
   dish: IDish;

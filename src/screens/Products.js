@@ -1,27 +1,27 @@
 // @flow
 
-import React, {useEffect, useState, StatelessFunctionalComponent} from 'react';
+import * as React from 'react';
 import {AppView} from '../components/app-view';
 import {FlatList} from 'react-native';
-import {Dish} from '../components/dish';
+import {Dish} from '../components/meals/dish';
 import type {IDish} from '../types/IMeals';
 
 interface IProps {
   fetchDishes: () => void;
 }
 
-const Meals: StatelessFunctionalComponent<IProps> = ({
+const Products: React.StatelessFunctionalComponent<IProps> = ({
   fetchDishes,
 }): React$Element => {
-  const [dishes, setDishes] = useState<IDish[]>([]);
-  useEffect(() => {
+  const [dishes, setDishes] = React.useState<IDish[]>([]);
+  React.useEffect(() => {
     async function getDishes() {
       setDishes(await fetchDishes);
     }
     getDishes();
   }, [fetchDishes]);
   return (
-    <AppView title={'Meals'}>
+    <AppView title={'Products'}>
       <FlatList
         data={dishes}
         renderItem={({item}) => <Dish dish={item} />}
@@ -31,4 +31,4 @@ const Meals: StatelessFunctionalComponent<IProps> = ({
   );
 };
 
-export default Meals;
+export default React.memo(Products);
