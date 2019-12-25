@@ -2,21 +2,20 @@
  * @flow strict
  */
 
-import React, {StatelessFunctionalComponent} from 'react';
+import * as React from 'react';
 import {AppView} from '../components/app-view';
 import {Home} from '../components/meals/home';
 
-interface IProps {
-  navigate: any;
-}
-const MealsHome: StatelessFunctionalComponent<IProps> = ({
-  navigate,
-}): React$Element => {
+type IProps = {
+  navigate: (url: string) => void,
+};
+
+function MealsHome({navigate}: IProps): React.Node {
   return (
     <AppView title={'Explore'}>
       <Home navigate={navigate} />
     </AppView>
   );
-};
+}
 
 export default MealsHome;

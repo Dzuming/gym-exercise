@@ -1,3 +1,7 @@
+/**
+ * @flow strict-local
+ */
+
 import Gym from './Gym';
 import Home from './Home';
 import Products from './Products';

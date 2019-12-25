@@ -3,19 +3,22 @@
  */
 
 import styled from 'styled-components/native';
-import {jade, white} from '../../../constants/colors';
+import {tango, white} from '../../../../constants/colors';
 
 export const StyledButton: React$ComponentType<{...}> = styled.TouchableOpacity`
-  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background-color: ${jade};
-  padding: 8px;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: ${tango};
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 `;
 
 export const StyledText: React$ComponentType<{...}> = styled.Text`
-  font-size: 20px;
   color: ${white};
-  padding-bottom: 4px;
+  font-size: 20px;
 `;

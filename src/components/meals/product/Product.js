@@ -1,6 +1,8 @@
-// @flow
+/**
+ * @flow strict
+ */
 
-import React, {memo} from 'react';
+import * as React from 'react';
 import {
   StyledCarbon,
   StyledColumn,
@@ -16,14 +18,12 @@ import {calculateCalories, getNutritionalValue} from '../../../utils/calculate';
 import type {IDish} from '../../../types/IMeals';
 import {defaultDish} from '../../../constants/images';
 
-interface IProps {
-  dish: IDish;
-}
+type IProps = {
+  dish: IDish,
+};
 
-const Dish: React$StatelessFunctionalComponent<IProps> = ({
-  dish,
-}): React$Element => {
-  const image = dish.image ? dish.image : defaultDish;
+function Product({dish}: IProps): React.Node {
+  const image = dish.image === undefined ? dish.image : defaultDish;
   return (
     <StyledRoot>
       <StyledImage source={{uri: image}} />
@@ -54,6 +54,6 @@ const Dish: React$StatelessFunctionalComponent<IProps> = ({
       </StyledColumn>
     </StyledRoot>
   );
-};
+}
 
-export default memo(Dish);
+export default (React.memo<IProps>(Product): React.AbstractComponent<IProps>);

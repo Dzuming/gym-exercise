@@ -1,15 +1,15 @@
-// @flow
+/**
+ * @flow strict
+ */
 
-import React, {memo} from 'react';
+import * as React from 'react';
 import {StyledHeader} from './styles';
 
-interface IProps {
-  title: string;
-}
-const Header: React$StatelessFunctionalComponent<IProps> = ({
-  title,
-}): React$Element => {
-  return <StyledHeader>{title}</StyledHeader>;
+type IProps = {
+  title: string,
 };
+function Header({title}: IProps): React.Node {
+  return <StyledHeader>{title}</StyledHeader>;
+}
 
-export default memo(Header);
+export default (React.memo(Header): React.AbstractComponent<IProps>);

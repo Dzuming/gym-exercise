@@ -1,3 +1,7 @@
+/**
+ * @flow strict
+ */
+
 export const silverChalice = '#afafaf';
 export const jade = '#00bc7e';
 export const white = '#fff';

@@ -2,21 +2,24 @@
  * @flow strict
  */
 
-import React, {memo} from 'react';
+import * as React from 'react';
 import Button from './Button';
 
-interface IProps {
-  navigate: any;
-}
-
-const Home: React$StatelessFunctionalComponent<IProps> = ({
-  navigate,
-}): React$Element => {
-  return (
-    <>
-      <Button text={'Products'} icon={'list'} navigate={navigate} redirectUrl={'Products'} />
-    </>
-  );
+type IProps = {
+  navigate: (url: string) => void,
 };
 
-export default memo(Home);
+function Home({navigate}: IProps): React.Node {
+  return (
+    <>
+      <Button
+        text={'Products'}
+        icon={'list'}
+        navigate={navigate}
+        redirectUrl={'Products'}
+      />
+    </>
+  );
+}
+
+export default (React.memo<IProps>(Home): React.AbstractComponent<IProps>);

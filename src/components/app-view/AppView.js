@@ -1,31 +1,31 @@
-// @flow
+/**
+ * @flow strict
+ */
 
-import React, {memo} from 'react';
-import Loader from '../Loader';
+import * as React from 'react';
 import {StyledAppView} from './styles';
 import {Header} from '../header';
+import {Loader} from '../shared/loader';
 
-interface IProps {
-  isLoading: boolean;
-  children: React$Node;
-  title: string;
+type IProps = {
+  isLoading?: boolean,
+  children: React.Node,
+  title: string,
+};
+
+function AppView({isLoading = false, children, title}: IProps): React.Node {
+  return (
+    <StyledAppView>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Header title={title} />
+          {children}
+        </>
+      )}
+    </StyledAppView>
+  );
 }
 
-const AppView: React$StatelessFunctionalComponent<IProps> = ({
-  isLoading,
-  children,
-  title,
-}): React$Element<any> => (
-  <StyledAppView>
-    {isLoading ? (
-      <Loader />
-    ) : (
-      <>
-        <Header title={title} />
-        {children}
-      </>
-    )}
-  </StyledAppView>
-);
-
-export default memo<IProps>(AppView);
+export default (React.memo<IProps>(AppView): React.AbstractComponent<IProps>);

@@ -1,15 +1,33 @@
-// @flow
+/**
+ *@flow strict-local
+ */
 
 import React from 'react';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {silverChalice, jade} from '../constants/colors';
-import {Products, Settings, Home, Gym, Timer} from '../screens';
+import {
+  createAppContainer,
+  createSwitchNavigator,
+  type NavigationState,
+  type NavigationParams,
+} from 'react-navigation';
+import type {NavigationContainer} from 'react-navigation';
+import {
+  type BottomTabNavigatorConfig,
+  createBottomTabNavigator,
+} from 'react-navigation-tabs';
+import {jade, silverChalice} from '../constants/colors';
+import {Gym, Home, Products, Settings, Timer} from '../screens';
 import {TabIcon} from '../components/tab-icon';
 import {createStackNavigator} from 'react-navigation-stack';
 import MealsHome from '../screens/MealsHome';
+import type Database from '@nozbe/watermelondb/src/Database';
+import {Tables} from '../model/schema.js';
+import type Model from '@nozbe/watermelondb/src/Model';
 
-const MealsStackNavigation = props =>
+type IProps = NavigationParams & {
+  database: Database
+}
+
+const MealsStackNavigation = (props: IProps) =>
   createStackNavigator(
     {
       MealsHome: {
@@ -20,8 +38,9 @@ const MealsStackNavigation = props =>
       Products: {
         screen: () => {
           const {database} = props;
-          const fetchDishes = database.collections
-            .get('dishes')
+          const collection = database.collections;
+          const fetchDishes: Promise<Model[]> = collection
+            .get(Tables.dishes)
             .query()
             .fetch();
           return <Products fetchDishes={fetchDishes} />;
@@ -33,7 +52,7 @@ const MealsStackNavigation = props =>
     },
   );
 
-const BottomNavigation = props =>
+const BottomNavigation = (props: IProps) =>
   createBottomTabNavigator(
     {
       Timer: {
@@ -98,10 +117,13 @@ const BottomNavigation = props =>
     },
   );
 
-const mainNavigation = props =>
+const mainNavigation = (props: IProps) =>
   createSwitchNavigator({
     Home: BottomNavigation(props),
   });
 
-export const createNavigation = props =>
-  createAppContainer(mainNavigation(props));
+export const createNavigation = (
+  props: IProps,
+): NavigationContainer<NavigationState, {...}, IProps> => {
+  return createAppContainer(mainNavigation(props));
+};

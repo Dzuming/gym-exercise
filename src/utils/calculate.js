@@ -1,4 +1,6 @@
-//@flow
+/**
+ * @flow strict
+ */
 
 export const calculateCalories = (
   carbon: number,
@@ -17,5 +19,5 @@ export const calculateCalories = (
 
 export const getNutritionalValue = (
   nutritionalValue: number,
-  amount? = 100,
+  amount: number = 100,
 ): number => nutritionalValue * amount;

@@ -1,5 +1,9 @@
-import styled from 'styled-components';
+/**
+ * @flow strict
+ */
 
-export const StyledHeader = styled.Text`
+import styled from 'styled-components/native';
+
+export const StyledHeader: React$ComponentType<{...}> = styled.Text`
   font-size: 32px;
 `;
