@@ -11,6 +11,8 @@
     "flow-typed": "^2.6.2",
     "i18next": "^17.2.0",
     "react": "16.9.0",
+    "react-hook-form": "^4.2.2",
+    "react-hook-form-input": "^1.1.10",
     "react-i18next": "^10.13.1",
     "react-native": "0.61.2",
     "react-native-datepicker": "^1.7.2",
