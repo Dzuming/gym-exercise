@@ -4,7 +4,7 @@
 
 import {field} from '@nozbe/watermelondb/decorators';
 import {Model} from '@nozbe/watermelondb';
-import {Tables, Columns} from './schema.js';
+import {Tables, Columns} from './schema';
 import type {TableName} from '@nozbe/watermelondb/src/Schema';
 
 const Column = Columns.dishes;

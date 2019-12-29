@@ -15,7 +15,7 @@ import type {
   AppSchema,
 } from '@nozbe/watermelondb/src/Schema';
 
-import Dish from './Dish';
+import type Dish from './Dish';
 
 export const Tables = {
   dishes: (tableName('dishes'): TableName<Dish>),
