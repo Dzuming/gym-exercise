@@ -2,7 +2,7 @@
  * @flow strict
  */
 
-export type IDish = {
+export type IProduct = {
   fat: number,
   name: string,
   unit: 'ml' | 'gr',

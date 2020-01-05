@@ -10,11 +10,11 @@ import {useForm} from 'react-hook-form';
 import {KeyboardAvoidingView, Text} from 'react-native';
 import {SelectInput} from '../../shared/fields/select-input';
 import addProductSchema from '../../../validators/addProductSchema';
-import type {IDish} from '../../../types/IMeals';
+import type {IProduct} from '../../../types/IMeals';
 import type Model from '@nozbe/watermelondb/Model';
 
 type IProps = {
-  createProduct: (newProduct: IDish) => Promise<Model[]>,
+  createProduct: (newProduct: IProduct) => Promise<Model[]>,
   handleCancel: () => void,
 };
 
@@ -26,7 +26,7 @@ function AddProduct({createProduct, handleCancel}: IProps): React.Node {
     },
   });
   const watchUnit = watch('unit');
-  const onSubmit = async (data: IDish) => {
+  const onSubmit = async (data: IProduct) => {
     try {
       await createProduct(data);
       handleCancel();

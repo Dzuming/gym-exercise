@@ -7,10 +7,10 @@ import {Model} from '@nozbe/watermelondb';
 import {Tables, Columns} from './schema';
 import type {TableName} from '@nozbe/watermelondb/src/Schema';
 
-const Column = Columns.dishes;
+const Column = Columns.products;
 
-export default class Dish extends Model {
-  static table: TableName<Dish> = Tables.dishes;
+export default class Product extends Model {
+  static table: TableName<Product> = Tables.products;
   @field(Column.name) name: string;
   @field(Column.unit) unit: string;
   @field(Column.protein) protein: number;

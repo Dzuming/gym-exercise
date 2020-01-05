@@ -2,6 +2,6 @@
  * @flow strict
  */
 
-import Dish from './Product';
+import Product from './Product';
 
-export {Dish};
+export {Product};

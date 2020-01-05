@@ -2,27 +2,18 @@
  * @flow strict-local
  */
 
-import {
-  appSchema,
-  tableSchema,
-  tableName,
-  columnName,
-} from '@nozbe/watermelondb';
+import {appSchema, tableSchema, tableName, columnName} from '@nozbe/watermelondb';
 
-import type {
-  ColumnName,
-  TableName,
-  AppSchema,
-} from '@nozbe/watermelondb/src/Schema';
+import type {ColumnName, TableName, AppSchema} from '@nozbe/watermelondb/src/Schema';
 
-import type Dish from './Dish';
+import type Product from './Product';
 
 export const Tables = {
-  dishes: (tableName('dishes'): TableName<Dish>),
+  products: (tableName('products'): TableName<Product>),
 };
 
 export const Columns = {
-  dishes: {
+  products: {
     name: (columnName('name'): ColumnName),
     unit: (columnName('unit'): ColumnName),
     protein: (columnName('protein'): ColumnName),
@@ -36,14 +27,14 @@ export const mySchema: AppSchema = appSchema({
   version: 1,
   tables: [
     tableSchema({
-      name: Tables.dishes,
+      name: Tables.products,
       columns: [
-        {name: Columns.dishes.name, type: 'string'},
-        {name: Columns.dishes.unit, type: 'string'},
-        {name: Columns.dishes.protein, type: 'number'},
-        {name: Columns.dishes.carbon, type: 'number'},
-        {name: Columns.dishes.fat, type: 'number'},
-        {name: Columns.dishes.image, type: 'string', isOptional: true},
+        {name: Columns.products.name, type: 'string'},
+        {name: Columns.products.unit, type: 'string'},
+        {name: Columns.products.protein, type: 'number'},
+        {name: Columns.products.carbon, type: 'number'},
+        {name: Columns.products.fat, type: 'number'},
+        {name: Columns.products.image, type: 'string', isOptional: true},
       ],
     }),
   ],

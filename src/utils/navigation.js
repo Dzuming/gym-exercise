@@ -14,7 +14,7 @@ import MealsHome from '../screens/MealsHome';
 import type Database from '@nozbe/watermelondb/src/Database';
 import {Tables} from '../model/schema.js';
 import type Model from '@nozbe/watermelondb/src/Model';
-import type {IDish} from '../types/IMeals';
+import type {IProduct} from '../types/IMeals';
 
 type IProps = NavigationParams & {
   database: Database,
@@ -31,10 +31,10 @@ const MealsStackNavigation = (props: IProps) =>
       Products: {
         screen: () => {
           const {database} = props;
-          const productCollection: Relation<Model[]> = database.collections.get(Tables.dishes);
-          const createProduct = async (newProduct: IDish): Promise<Model[]> =>
+          const productCollection: Relation<Model[]> = database.collections.get(Tables.products);
+          const createProduct = async (newProduct: IProduct): Promise<Model[]> =>
             await database.action(async () => {
-              await productCollection.create((product: IDish) => {
+              await productCollection.create((product: IProduct) => {
                 product.carbon = newProduct.carbon;
                 product.fat = newProduct.fat;
                 product.name = newProduct.name;
