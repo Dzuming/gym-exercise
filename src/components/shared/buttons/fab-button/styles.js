@@ -14,7 +14,7 @@ export const StyledButton: React$ComponentType<{...}> = styled.TouchableOpacity`
   border-radius: 30px;
   background-color: ${tango};
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   right: 10px;
 `;
 

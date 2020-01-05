@@ -46,9 +46,7 @@ function Product({dish}: IProps): React.Node {
           </StyledRow>
         </StyledRow>
         <StyledRow>
-          <StyledKcal>
-            {calculateCalories(dish.carbon, dish.fat, dish.protein)}kcal
-          </StyledKcal>
+          <StyledKcal>{calculateCalories(dish.carbon, dish.fat, dish.protein)}kcal</StyledKcal>
           <StyledText>100{dish.unit}</StyledText>
         </StyledRow>
       </StyledColumn>

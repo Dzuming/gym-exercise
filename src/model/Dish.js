@@ -12,7 +12,7 @@ const Column = Columns.dishes;
 export default class Dish extends Model {
   static table: TableName<Dish> = Tables.dishes;
   @field(Column.name) name: string;
-  @field(Column.unit) unit: 'ml' | 'gr';
+  @field(Column.unit) unit: string;
   @field(Column.protein) protein: number;
   @field(Column.carbon) carbon: number;
   @field(Column.fat) fat: number;

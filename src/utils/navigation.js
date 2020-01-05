@@ -3,17 +3,9 @@
  */
 
 import React from 'react';
-import {
-  createAppContainer,
-  createSwitchNavigator,
-  type NavigationState,
-  type NavigationParams,
-} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator, type NavigationState, type NavigationParams} from 'react-navigation';
 import type {NavigationContainer} from 'react-navigation';
-import {
-  type BottomTabNavigatorConfig,
-  createBottomTabNavigator,
-} from 'react-navigation-tabs';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {jade, silverChalice} from '../constants/colors';
 import {Gym, Home, Products, Settings, Timer} from '../screens';
 import {TabIcon} from '../components/tab-icon';
@@ -22,10 +14,11 @@ import MealsHome from '../screens/MealsHome';
 import type Database from '@nozbe/watermelondb/src/Database';
 import {Tables} from '../model/schema.js';
 import type Model from '@nozbe/watermelondb/src/Model';
+import type {IDish} from '../types/IMeals';
 
 type IProps = NavigationParams & {
-  database: Database
-}
+  database: Database,
+};
 
 const MealsStackNavigation = (props: IProps) =>
   createStackNavigator(
@@ -38,12 +31,19 @@ const MealsStackNavigation = (props: IProps) =>
       Products: {
         screen: () => {
           const {database} = props;
-          const collection = database.collections;
-          const fetchDishes: Promise<Model[]> = collection
-            .get(Tables.dishes)
-            .query()
-            .fetch();
-          return <Products fetchDishes={fetchDishes} />;
+          const productCollection: Relation<Model[]> = database.collections.get(Tables.dishes);
+          const createProduct = async (newProduct: IDish): Promise<Model[]> =>
+            await database.action(async () => {
+              await productCollection.create((product: IDish) => {
+                product.carbon = newProduct.carbon;
+                product.fat = newProduct.fat;
+                product.name = newProduct.name;
+                product.protein = newProduct.protein;
+                product.image = newProduct.image;
+                product.unit = newProduct.unit;
+              });
+            });
+          return <Products database={database} createProduct={createProduct} />;
         },
       },
     },
@@ -60,18 +60,14 @@ const BottomNavigation = (props: IProps) =>
           return <Timer />;
         },
         navigationOptions: () => ({
-          tabBarIcon: ({tintColor}) => (
-            <TabIcon name={'timer'} color={tintColor} />
-          ),
+          tabBarIcon: ({tintColor}) => <TabIcon name={'timer'} color={tintColor} />,
         }),
       },
       Meals: {
         screen: MealsStackNavigation(props),
         navigationOptions: () => ({
           visible: false,
-          tabBarIcon: ({tintColor}) => (
-            <TabIcon name={'local-dining'} color={tintColor} />
-          ),
+          tabBarIcon: ({tintColor}) => <TabIcon name={'local-dining'} color={tintColor} />,
         }),
       },
       Home: {
@@ -79,9 +75,7 @@ const BottomNavigation = (props: IProps) =>
           return <Home />;
         },
         navigationOptions: () => ({
-          tabBarIcon: ({tintColor}) => (
-            <TabIcon name={'home'} color={tintColor} />
-          ),
+          tabBarIcon: ({tintColor}) => <TabIcon name={'home'} color={tintColor} />,
         }),
       },
       Gym: {
@@ -89,9 +83,7 @@ const BottomNavigation = (props: IProps) =>
           return <Gym />;
         },
         navigationOptions: () => ({
-          tabBarIcon: ({tintColor}) => (
-            <TabIcon name={'fitness-center'} color={tintColor} />
-          ),
+          tabBarIcon: ({tintColor}) => <TabIcon name={'fitness-center'} color={tintColor} />,
         }),
       },
       Settings: {
@@ -99,9 +91,7 @@ const BottomNavigation = (props: IProps) =>
           return <Settings />;
         },
         navigationOptions: () => ({
-          tabBarIcon: ({tintColor}) => (
-            <TabIcon name={'settings-input-composite'} color={tintColor} />
-          ),
+          tabBarIcon: ({tintColor}) => <TabIcon name={'settings-input-composite'} color={tintColor} />,
         }),
       },
     },
@@ -122,8 +112,6 @@ const mainNavigation = (props: IProps) =>
     Home: BottomNavigation(props),
   });
 
-export const createNavigation = (
-  props: IProps,
-): NavigationContainer<NavigationState, {...}, IProps> => {
+export const createNavigation = (props: IProps): NavigationContainer<NavigationState, {...}, IProps> => {
   return createAppContainer(mainNavigation(props));
 };
