@@ -5,13 +5,13 @@
 import * as React from 'react';
 import {TextInput} from '../../shared/fields/text-input';
 import {CancelButton} from '../../shared/buttons/cancel-button';
-import {SubmitButton} from '../../shared/buttons/submit-button';
 import {useForm} from 'react-hook-form';
 import {KeyboardAvoidingView, Text} from 'react-native';
 import {SelectInput} from '../../shared/fields/select-input';
 import addProductSchema from '../../../validators/addProductSchema';
 import type {IProduct} from '../../../types/IMeals';
 import type Model from '@nozbe/watermelondb/Model';
+import {SubmitButton} from '../../shared/buttons/submit-button';
 
 type IProps = {
   createProduct: (newProduct: IProduct) => Promise<Model[]>,
@@ -22,7 +22,7 @@ function AddProduct({createProduct, handleCancel}: IProps): React.Node {
   const {register, setValue, handleSubmit, watch, errors} = useForm({
     validationSchema: addProductSchema,
     defaultValues: {
-      unit: 'gr',
+      unit: 'g',
     },
   });
   const watchUnit = watch('unit');
@@ -46,8 +46,8 @@ function AddProduct({createProduct, handleCancel}: IProps): React.Node {
         name={'unit'}
         options={[
           {
-            label: 'gr',
-            value: 'gr',
+            label: 'g',
+            value: 'g',
           },
           {
             label: 'ml',
