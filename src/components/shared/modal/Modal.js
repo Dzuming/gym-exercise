@@ -15,12 +15,8 @@ type IProps = {
 
 function Modal({isOpen, title, handleClose, children}: IProps): React.Node {
   return (
-    <RnModal
-      animationType="fade"
-      transparent={false}
-      visible={isOpen}
-      onRequestClose={handleClose}>
-      <AppView title={title}>{children}</AppView>
+    <RnModal animationType="fade" transparent={false} visible={isOpen} onRequestClose={handleClose}>
+      {children}
     </RnModal>
   );
 }
