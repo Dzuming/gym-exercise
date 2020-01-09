@@ -24,7 +24,7 @@ export const Columns = {
 };
 
 export const mySchema: AppSchema = appSchema({
-  version: 1,
+  version: 2,
   tables: [
     tableSchema({
       name: Tables.products,

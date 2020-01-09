@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 import {ActivityIndicator} from 'react-native';
-import {StyledLoader} from './styes';
+import {StyledLoader} from './styles';
 
 function Loader(): React.Node {
   return (
