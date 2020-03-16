@@ -7,7 +7,7 @@
     "abab": "^1.0.4",
     "absolute-path": "^0.0.0",
     "accepts": "^1.3.5",
-    "acorn": "^5.7.1",
+    "acorn": "^5.7.4",
     "acorn-globals": "^4.1.0",
     "ajv": "^5.5.2",
     "align-text": "^0.1.4",
