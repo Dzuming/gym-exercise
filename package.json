@@ -269,7 +269,7 @@
     "has-value": "^1.0.0",
     "has-values": "^1.0.0",
     "home-or-tmp": "^2.0.0",
-    "hosted-git-info": "^2.6.0",
+    "hosted-git-info": "^2.8.9",
     "html-encoding-sniffer": "^1.0.2",
     "http-errors": "^1.6.3",
     "http-signature": "^1.2.0",
